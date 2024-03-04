@@ -1,11 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bex08a2uird62"]
+[gd_scene load_steps=6 format=3 uid="uid://bex08a2uird62"]
 
+[ext_resource type="Script" path="res://main.gd" id="1_2sldp"]
 [ext_resource type="PackedScene" uid="uid://clfk2e33kplw3" path="res://Objects/player.tscn" id="1_d4kpf"]
 [ext_resource type="PackedScene" uid="uid://djyqnndv57eo1" path="res://Objects/road.tscn" id="2_25o2u"]
+[ext_resource type="Script" path="res://mapGenerator.gd" id="4_qop3w"]
 
 [sub_resource type="Environment" id="Environment_sks4p"]
 
 [node name="Main" type="Node3D"]
+script = ExtResource("1_2sldp")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sks4p")
@@ -14,7 +17,7 @@ environment = SubResource("Environment_sks4p")
 transform = Transform3D(0.218798, -0.619793, 0.753647, 0.172802, 0.784766, 0.595216, -0.960347, 0, 0.278807, 0, 5.34271, 0)
 
 [node name="Player" parent="." instance=ExtResource("1_d4kpf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Pitch Pivot" type="Node3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0)
@@ -22,4 +25,6 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0)
 [node name="Camera3D" type="Camera3D" parent="Player/Pitch Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
-[node name="Road" parent="." instance=ExtResource("2_25o2u")]
+[node name="MapGenerator" type="Node3D" parent="."]
+script = ExtResource("4_qop3w")
+roadScene = ExtResource("2_25o2u")

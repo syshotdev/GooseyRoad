@@ -1,16 +1,14 @@
 extends CharacterBody3D
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-
+var targetPos : Vector3
 
 func _input(event):
 	var out := getActionJustVectored()
-	moveDirSquare(out * Constants.blockSize)
+	targetPos += out
 
 
-func getActionJustVectored() -> Vector3i:
-	var output : Vector3i = Vector3i(0, 0, 0)
+func getActionJustVectored() -> Vector3:
+	var output : Vector3 = Vector3(0, 0, 0)
 	
 	# If going forward, backward, left, right, up, or down, it gives a vector with those.
 	if(Input.is_action_just_pressed("left")):
@@ -24,9 +22,11 @@ func getActionJustVectored() -> Vector3i:
 	elif(Input.is_action_just_pressed("jump")):
 		output.y = 1
 	
+	print(position)
+	
 	return output
 
-# Basically, when given a direction, it goes exactly one unit in that direction while making it smooth.
-# TODO: make the animation smooth and consider collisions
-func moveDirSquare(direction : Vector3):
-	position += direction
+
+func _process(delta):
+	# Smoothly go to target pos
+	position = lerp(position, targetPos, 0.5)

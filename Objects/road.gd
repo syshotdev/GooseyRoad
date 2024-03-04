@@ -10,21 +10,21 @@ extends Node3D
 
 # Set up road
 func _ready():
-	roadMesh.size.x = lengthOfRoad # Might work, I don't know
-	roadMesh.request_ready()
+	# Rotate the entire thing 180 half the time
+	if(randi_range(0, 1) == 1):
+		rotate_y(deg_to_rad(180))
+	
+	roadMesh.size.x = lengthOfRoad
 	carSpawningPoint.position.x = lengthOfRoad / 2.0 # Make it on right
 	carRemovalArea.position.x = -lengthOfRoad / 2.0 # Make it on left
 	spawnCar()
+
 
 # For spawning car
 func spawnCar():
 	var car := carScene.instantiate()
 	car.position = carSpawningPoint.position
 	add_child(car)
-
-
-func _process(delta : float):
-	pass
 
 
 func carRemovalAreaEntered(area : Area3D):
