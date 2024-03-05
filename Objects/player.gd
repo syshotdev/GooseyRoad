@@ -1,10 +1,16 @@
 extends CharacterBody3D
 
-var targetPos : Vector3
+signal playerMoved(newPos : Vector3)
+
+@onready var targetPos : Vector3 = global_position
 
 func _input(event):
+	if not event is InputEventKey:
+		return
+	
 	var out := getActionJustVectored()
 	targetPos += out
+	playerMoved.emit(position)
 
 
 func getActionJustVectored() -> Vector3:

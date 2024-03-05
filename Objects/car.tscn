@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" path="res://Objects/car.gd" id="1_38bkv"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_5wh7g"]
+[sub_resource type="PrismMesh" id="PrismMesh_oja2l"]
+left_to_right = 1.0
 size = Vector3(1.5, 0.6, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rnb4h"]
@@ -13,7 +14,7 @@ script = ExtResource("1_38bkv")
 direction = Vector3(-1, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_5wh7g")
+mesh = SubResource("PrismMesh_oja2l")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_rnb4h")
