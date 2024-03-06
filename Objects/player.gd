@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+class_name Player
+
 signal playerMoved(newPos : Vector3)
 
 @onready var targetPos : Vector3 = global_position
@@ -27,7 +29,7 @@ func getActionJustVectored() -> Vector3:
 	elif(Input.is_action_just_pressed("backward")):
 		output.z = 1
 	
-	print(position)
+	#print(position)
 	
 	return output
 

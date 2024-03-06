@@ -6,10 +6,12 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_uxjdn"]
 size = Vector3(6.55947, 3, 3)
 
-[node name="Car" type="CharacterBody3D"]
+[node name="Car" type="CharacterBody3D" node_paths=PackedStringArray("collisionShape")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_38bkv")
-direction = Vector3(-1, 0, 0)
+collisionShape = NodePath("CollisionShape3D")
 
 [node name="car" parent="." instance=ExtResource("2_55hg1")]
 transform = Transform3D(-3.93403e-08, 0, 0.9, 0, 0.9, 0, -0.9, 0, -3.93403e-08, 0, 0, 0)

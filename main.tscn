@@ -6,9 +6,11 @@
 
 [sub_resource type="Environment" id="Environment_sks4p"]
 
-[node name="Main" type="Node3D" node_paths=PackedStringArray("mapGenerator")]
+[node name="Main" type="Node3D" node_paths=PackedStringArray("mapGenerator", "cameraOrigin", "player")]
 script = ExtResource("1_2sldp")
 mapGenerator = NodePath("MapGenerator")
+cameraOrigin = NodePath("Camera Yaw Pivot")
+player = NodePath("Player")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sks4p")
