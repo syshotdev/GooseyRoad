@@ -3,24 +3,35 @@ extends Node3D
 @export var mapGenerator : MapGenerator
 
 var score : int = 0
-var furthestGeneratedPosition : int = 0 : set = updateFurthestPosition # Goes up and is used for only extending the map when player moves forward
+# Used for extending map ahead of player
+var lowestStripID : int = -Constants.mapStripsBehindPlayer # Basically pos of first strip, aka strip behind player
+var playerHighestStripID : int = 0 # To keep track if the player went forward or backward
+var highestStripID : int = Constants.mapStripsInFrontPlayer # mapAmountOfStrips ahead of mapStripsBehindPlayer
 
 func playerMoved(newPos : Vector3):
-	# If the furthest position is less than (absolutely) player's position, generate more sections
-	if(furthestGeneratedPosition > abs(newPos.z)):
-		return
+	var playerStripID : int = abs(newPos.z) / Constants.blockSize
 	
-	var amountOfStripsToMake : int = floor(abs(newPos.z) - furthestGeneratedPosition)
-	# Add that many map strips
+	generateNewStrips(playerStripID) # Aint broke, don't fix it. But could just use highest strip ID
+	
+	updateFromPlayerStrip(playerStripID)
+
+
+func generateNewStrips(playerStripID : int):
+	# Formula = difference between playerStrip and highestStrip, but highestStripID should equal playerStripID when remove offset
+	var amountOfStripsToMake : int = playerStripID - (highestStripID - Constants.mapStripsInFrontPlayer)
+	clampi(amountOfStripsToMake, 0, INF) # Clamp it because negative means player is going backwards
+	
 	for i in range(amountOfStripsToMake):
 		mapGenerator.generateNextMapStrip()
-	
-	furthestGeneratedPosition += amountOfStripsToMake
 
-# Updates the score when number goes up
-func updateFurthestPosition(number : int):
-	updateScore(number)
-	furthestGeneratedPosition = number
+
+# Updates the score when player moves
+func updateFromPlayerStrip(playerStripID : int):
+	updateScore(playerStripID)
+	# Max for checking whether to actually lower or higher it (since chunking system wack)
+	lowestStripID = max(playerStripID, playerHighestStripID) - Constants.mapStripsBehindPlayer
+	highestStripID = max(playerStripID, playerHighestStripID) + Constants.mapStripsInFrontPlayer
+	playerHighestStripID = max(playerStripID, playerHighestStripID) # Set HighestStripID to this one
 
 
 func updateScore(score : int):

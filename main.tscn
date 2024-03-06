@@ -16,16 +16,22 @@ environment = SubResource("Environment_sks4p")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.218798, -0.619793, 0.753647, 0.172802, 0.784766, 0.595216, -0.960347, 0, 0.278807, 0, 5.34271, 0)
 
+[node name="MapGenerator" parent="." instance=ExtResource("3_4pb7w")]
+
 [node name="Player" parent="." instance=ExtResource("1_d4kpf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="Pitch Pivot" type="Node3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0)
+[node name="Camera Yaw Pivot" type="Node3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 1, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Player/Pitch Pivot"]
+[node name="Camera Pitch Pivot" type="Node3D" parent="Camera Yaw Pivot"]
+transform = Transform3D(1, 0, 0, 0, 0.707106, 0.707106, 0, -0.707106, 0.707106, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Camera Yaw Pivot/Camera Pitch Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
-
-[node name="MapGenerator" parent="." instance=ExtResource("3_4pb7w")]
+projection = 1
+fov = 80.0
+size = 7.0
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

@@ -8,7 +8,7 @@ class_name MapGenerator
 
 @onready var modules : Array[PackedScene] = [roadScene] # Houses all of the packed scenes for easy shuffling
 @onready var currentMap : Array = [] # Houses all of the strips for easy access
-@onready var currentStripPosition : int = 0 # the id of the current strip (To position one after another)
+@onready var currentStripPosition : int = -Constants.mapStripsBehindPlayer # the id of the current strip (To position one after another)
 
 
 func _ready():

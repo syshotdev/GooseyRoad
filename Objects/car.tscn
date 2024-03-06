@@ -1,26 +1,26 @@
 [gd_scene load_steps=4 format=3 uid="uid://beguuue73mcmk"]
 
 [ext_resource type="Script" path="res://Objects/car.gd" id="1_38bkv"]
+[ext_resource type="PackedScene" uid="uid://bmuesdswidpml" path="res://Models/car.dae" id="2_55hg1"]
 
-[sub_resource type="PrismMesh" id="PrismMesh_oja2l"]
-left_to_right = 1.0
-size = Vector3(1.5, 0.6, 1)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rnb4h"]
-points = PackedVector3Array(-0.75, -0.3, -0.5, -0.75, 0.3, -0.5, 0.75, -0.3, -0.5, -0.75, -0.3, 0.5, -0.75, 0.3, 0.5, 0.75, 0.3, -0.5, 0.75, -0.3, 0.5, 0.75, 0.3, 0.5)
+[sub_resource type="BoxShape3D" id="BoxShape3D_uxjdn"]
+size = Vector3(6.55947, 3, 3)
 
 [node name="Car" type="CharacterBody3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 script = ExtResource("1_38bkv")
 direction = Vector3(-1, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("PrismMesh_oja2l")
+[node name="car" parent="." instance=ExtResource("2_55hg1")]
+transform = Transform3D(-3.93403e-08, 0, 0.9, 0, 0.9, 0, -0.9, 0, -3.93403e-08, 0, 0, 0)
 
-[node name="CollisionShape" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_rnb4h")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.521799, 0.958034, -0.0314605)
+shape = SubResource("BoxShape3D_uxjdn")
 
 [node name="Area3D" type="Area3D" parent="."]
 monitoring = false
 
-[node name="CarArea" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("ConvexPolygonShape3D_rnb4h")
+[node name="Area" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.521799, 0.958034, -0.0314605)
+shape = SubResource("BoxShape3D_uxjdn")

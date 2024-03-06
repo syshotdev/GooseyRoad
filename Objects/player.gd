@@ -5,6 +5,7 @@ signal playerMoved(newPos : Vector3)
 @onready var targetPos : Vector3 = global_position
 
 func _input(event):
+	# Guard clause to check if keyboard key
 	if not event is InputEventKey:
 		return
 	
@@ -25,8 +26,6 @@ func getActionJustVectored() -> Vector3:
 		output.z = -1
 	elif(Input.is_action_just_pressed("backward")):
 		output.z = 1
-	elif(Input.is_action_just_pressed("jump")):
-		output.y = 1
 	
 	print(position)
 	
