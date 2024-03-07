@@ -18,7 +18,11 @@ func playerMoved(newPos : Vector3):
 
 func generateNewStrips(playerStripID : int):
 	# Formula = difference between playerStrip and highestStrip, but highestStripID should equal playerStripID when remove offset
+<<<<<<< HEAD
 	var amountOfStripsToMake : int = playerStripID - (highestStripID - Constants.mapStripsInFrontPlayer)
+=======
+	var amountOfStripsToMake : int = floor(playerStripID - (highestStripID - Constants.mapStripsInFrontPlayer))
+>>>>>>> parent of 488ca77 (Made player collide with things, it's bad.)
 	clampi(amountOfStripsToMake, 0, INF) # Clamp it because negative means player is going backwards
 	
 	for i in range(amountOfStripsToMake):
