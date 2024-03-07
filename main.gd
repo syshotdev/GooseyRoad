@@ -1,42 +1,60 @@
 extends Node3D
 
 @export var mapGenerator : MapGenerator
+@export var cameraOrigin : Node3D
+@export var player : Player
 
 var score : int = 0
 # Used for extending map ahead of player
 var lowestStripID : int = -Constants.mapStripsBehindPlayer # Basically pos of first strip, aka strip behind player
-var playerHighestStripID : int = 0 # To keep track if the player went forward or backward
 var highestStripID : int = Constants.mapStripsInFrontPlayer # mapAmountOfStrips ahead of mapStripsBehindPlayer
+var playerHighestStripPos : float = 0 # To keep track if the player went forward or backward
 
+var cameraTargetPosition : Vector3 = Vector3.ZERO # For smoothly lerping between current and target position
+
+
+func _process(delta):
+	playerHighestStripPos += Constants.cameraSpeed * delta
+	generateNewStrips(playerHighestStripPos)
+	updateCameraPosition(playerHighestStripPos)
+	updateFromPlayerStrip(playerHighestStripPos)
+	isPlayerDead()
+
+
+# Signal when player moves, updates current highest player position.
 func playerMoved(newPos : Vector3):
-	var playerStripID : int = abs(newPos.z) / Constants.blockSize
-	
-	generateNewStrips(playerStripID) # Aint broke, don't fix it. But could just use highest strip ID
-	
-	updateFromPlayerStrip(playerStripID)
+	var playerStripID : float = abs(newPos.z) / Constants.blockSize
+	playerHighestStripPos = max(playerStripID, playerHighestStripPos) # Only set if this strip higher than old one.
 
-
-func generateNewStrips(playerStripID : int):
+# Generate function of strips (Doesn't generate if player moves anywhere but forward)
+func generateNewStrips(playerStripID : float):
 	# Formula = difference between playerStrip and highestStrip, but highestStripID should equal playerStripID when remove offset
-<<<<<<< HEAD
-	var amountOfStripsToMake : int = playerStripID - (highestStripID - Constants.mapStripsInFrontPlayer)
-=======
 	var amountOfStripsToMake : int = floor(playerStripID - (highestStripID - Constants.mapStripsInFrontPlayer))
->>>>>>> parent of 488ca77 (Made player collide with things, it's bad.)
 	clampi(amountOfStripsToMake, 0, INF) # Clamp it because negative means player is going backwards
 	
 	for i in range(amountOfStripsToMake):
 		mapGenerator.generateNextMapStrip()
 
+# Updates camera smoothly with playerStripID
+func updateCameraPosition(playerStripID : float):
+	# Negative z is forward, player strip ID only goes up
+	cameraOrigin.position.z = lerp(cameraOrigin.position.z, -playerStripID * Constants.blockSize, 0.1)
 
-# Updates the score when player moves
-func updateFromPlayerStrip(playerStripID : int):
+# Updates the score and lowest and highest stripIDS
+func updateFromPlayerStrip(playerStripID : float):
 	updateScore(playerStripID)
 	# Max for checking whether to actually lower or higher it (since chunking system wack)
-	lowestStripID = max(playerStripID, playerHighestStripID) - Constants.mapStripsBehindPlayer
-	highestStripID = max(playerStripID, playerHighestStripID) + Constants.mapStripsInFrontPlayer
-	playerHighestStripID = max(playerStripID, playerHighestStripID) # Set HighestStripID to this one
+	lowestStripID = playerHighestStripPos - Constants.mapStripsBehindPlayer
+	highestStripID = playerHighestStripPos + Constants.mapStripsInFrontPlayer
+
+
+func isPlayerDead():
+	var playerStripID : float = -player.position.z / Constants.blockSize
+	if(playerStripID < lowestStripID):
+		print("Died") # IT WORKS!!!!!
+		pass # Replace with endGame() function
 
 
 func updateScore(score : int):
+	self.score = score
 	$UI/Score.text = str("Score: ", score) # TEMPORARY!!
