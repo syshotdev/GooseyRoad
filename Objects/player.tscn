@@ -1,17 +1,51 @@
-[gd_scene load_steps=4 format=3 uid="uid://clfk2e33kplw3"]
+[gd_scene load_steps=6 format=3 uid="uid://clfk2e33kplw3"]
 
 [ext_resource type="Script" path="res://Objects/player.gd" id="1_di86l"]
 [ext_resource type="PackedScene" uid="uid://box5ejakp8ec8" path="res://Models/duck.dae" id="2_kkexh"]
+[ext_resource type="Script" path="res://Objects/collisionDetector.gd" id="3_7y2dt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qe5cu"]
 height = 2.12759
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_rkqlg"]
+size = Vector3(0.5, 0.5, 1)
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("model")]
 script = ExtResource("1_di86l")
+model = NodePath("Goose Pivot")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.032)
 shape = SubResource("CapsuleShape3D_qe5cu")
 
-[node name="duck" parent="." instance=ExtResource("2_kkexh")]
+[node name="Goose Pivot" type="Node3D" parent="."]
+
+[node name="Goose" parent="Goose Pivot" instance=ExtResource("2_kkexh")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -1, 0)
+
+[node name="Forward" type="Area3D" parent="."]
+script = ExtResource("3_7y2dt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Forward"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.05)
+shape = SubResource("BoxShape3D_rkqlg")
+
+[node name="Backward" type="Area3D" parent="."]
+script = ExtResource("3_7y2dt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Backward"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 1.05)
+shape = SubResource("BoxShape3D_rkqlg")
+
+[node name="Left" type="Area3D" parent="."]
+script = ExtResource("3_7y2dt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Left"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.05, 0, 0)
+shape = SubResource("BoxShape3D_rkqlg")
+
+[node name="Right" type="Area3D" parent="."]
+script = ExtResource("3_7y2dt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Right"]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 1.05, 0, 0)
+shape = SubResource("BoxShape3D_rkqlg")

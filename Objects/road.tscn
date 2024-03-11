@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://djyqnndv57eo1"]
+[gd_scene load_steps=5 format=3 uid="uid://djyqnndv57eo1"]
 
 [ext_resource type="PackedScene" uid="uid://beguuue73mcmk" path="res://Objects/car.tscn" id="1_5637j"]
 [ext_resource type="Script" path="res://Objects/road.gd" id="1_kgcql"]
+[ext_resource type="PackedScene" uid="uid://cc2mvth3somss" path="res://Objects/road_mesh.tscn" id="3_qchka"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6eijy"]
 size = Vector3(1, 2, 1)
@@ -10,11 +11,10 @@ size = Vector3(1, 2, 1)
 script = ExtResource("1_kgcql")
 carScene = ExtResource("1_5637j")
 
-[node name="RoadMesh" type="CSGBox3D" parent="."]
-size = Vector3(15, 0.2, 1)
+[node name="RoadMesh" parent="." instance=ExtResource("3_qchka")]
 
 [node name="CarSpawningPoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.6, 0)
 
 [node name="CarRemovalArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0, 0)
@@ -25,7 +25,6 @@ shape = SubResource("BoxShape3D_6eijy")
 
 [node name="CarSpawningTimer" type="Timer" parent="."]
 wait_time = 2.0
-autostart = true
 
 [connection signal="area_entered" from="CarRemovalArea" to="." method="carRemovalAreaEntered"]
 [connection signal="timeout" from="CarSpawningTimer" to="." method="carSpawningTimerEnded"]

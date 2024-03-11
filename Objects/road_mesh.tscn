@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cc2mvth3somss"]
+
+[ext_resource type="Script" path="res://Objects/roadMesh.gd" id="1_cifau"]
+
+[node name="RoadMesh" type="CSGBox3D"]
+size = Vector3(15, 0.2, 1)
+script = ExtResource("1_cifau")
