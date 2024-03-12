@@ -9,8 +9,9 @@ height = 2.12759
 [sub_resource type="BoxShape3D" id="BoxShape3D_pwoya"]
 size = Vector3(0.5, 0.5, 0.8)
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("detectionArea")]
 script = ExtResource("1_di86l")
+detectionArea = NodePath("Area3D")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_qe5cu")

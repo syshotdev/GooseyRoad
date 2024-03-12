@@ -4,20 +4,28 @@ class_name Player
 
 signal playerMoved(newPos : Vector3)
 
+@export var detectionArea : Area3D
+
 @onready var targetPos : Vector3 = global_position
 var lastDirection : Vector3 = Vector3.ZERO
-var canMove : bool = true
 var thingsInDetectionArea : Dictionary # Key: thing inside area, Value: 0
+var extraBooleanForDelay : bool = false
 
 
 func _physics_process(delta):
 	# Smoothly go to target pos
 	position = lerp(position, targetPos, 0.5)
 	
-	if(!canMove):
-		targetPos -= lastDirection
+	# If we didn't move at all, return
+	if(lastDirection == Vector3.ZERO):
+		return
+	# Waits an extra tick lol (for waiting till area3d updates what's inside it)
+	if(extraBooleanForDelay == false):
+		extraBooleanForDelay = true
+	elif(isDirectionMovable(lastDirection)):
+		targetPos += lastDirection # Target position
 		lastDirection = Vector3.ZERO
-		canMove = true
+		extraBooleanForDelay = false
 
 
 func _input(event):
@@ -29,18 +37,10 @@ func _input(event):
 	# If direction is 0, don't move on cause we didn't move
 	if(direction == Vector3.ZERO):
 		return
-	
-	rotateGooseInDir(direction) # Rotate to check if colliding
-	
-	if(direction != lastDirection): # If direction is not last direction (rotating), remove current colliding objects
-		thingsInDetectionArea.clear()
-	elif(!canMove): # If direction is not movable and is last dir, we stuck on tree
-		return
-	
-	targetPos += direction # Target position
+	rotateGooseInDir(direction)
 	lastDirection = direction
-	
 	playerMoved.emit(position)
+
 
 # Gets the action just pressed, like wasd
 func getActionJustVectored() -> Vector3:
@@ -60,10 +60,6 @@ func getActionJustVectored() -> Vector3:
 	
 	return output
 
-
-func calculateCanMove():
-	canMove = isDirectionMovable(lastDirection)
-
 # Checks whether the current direction is a moveable one.
 func isDirectionMovable(direction : Vector3) -> bool:
 	# If we're trying to move in a direction and something blocking, return false
@@ -79,7 +75,6 @@ func rotateGooseInDir(direction : Vector3):
 func detectionAreaEntered(body):
 	# At the area, add body to array of things in it
 	thingsInDetectionArea[body] = 0
-	calculateCanMove()
 
 func detectionAreaExited(body):
 	if(thingsInDetectionArea.has(body)):
