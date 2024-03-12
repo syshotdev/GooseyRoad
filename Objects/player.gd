@@ -4,20 +4,20 @@ class_name Player
 
 signal playerMoved(newPos : Vector3)
 
-@export var model : Node3D # Model for making goose look around
-
 @onready var targetPos : Vector3 = global_position
-var directionDetectionArea : Dictionary # Key: direction, Value: detection area
-var detectionAreaThings : Dictionary # Key: detection area, Value: Array or dictionary of things currently in it.
+var lastDirection : Vector3 = Vector3.ZERO
+var canMove : bool = true
+var thingsInDetectionArea : Dictionary # Key: thing inside area, Value: 0
 
 
-func _ready():
-	initializeDetectionAreaVars()
-
-
-func _process(delta):
+func _physics_process(delta):
 	# Smoothly go to target pos
 	position = lerp(position, targetPos, 0.5)
+	
+	if(!canMove):
+		targetPos -= lastDirection
+		lastDirection = Vector3.ZERO
+		canMove = true
 
 
 func _input(event):
@@ -31,13 +31,18 @@ func _input(event):
 		return
 	
 	rotateGooseInDir(direction) # Rotate to check if colliding
-	if(!isDirectionMovable(direction)):
+	
+	if(direction != lastDirection): # If direction is not last direction (rotating), remove current colliding objects
+		thingsInDetectionArea.clear()
+	elif(!canMove): # If direction is not movable and is last dir, we stuck on tree
 		return
 	
 	targetPos += direction # Target position
+	lastDirection = direction
+	
 	playerMoved.emit(position)
 
-
+# Gets the action just pressed, like wasd
 func getActionJustVectored() -> Vector3:
 	var output : Vector3 = Vector3.ZERO
 	
@@ -55,38 +60,27 @@ func getActionJustVectored() -> Vector3:
 	
 	return output
 
+
+func calculateCanMove():
+	canMove = isDirectionMovable(lastDirection)
+
 # Checks whether the current direction is a moveable one.
 func isDirectionMovable(direction : Vector3) -> bool:
 	# If we're trying to move in a direction and something blocking, return false
-	var areaWeChecking : Area3D = directionDetectionArea[direction]
-	if(detectionAreaThings[areaWeChecking].size() > 0):
+	if(thingsInDetectionArea.size() > 0):
 		return false
-	
 	return true
 
-# Rotates goose from coordinate
+# Rotates goose in direction, direction being vec3
 func rotateGooseInDir(direction : Vector3):
-	model.look_at(position + direction)
-
-# Set up all directions to remember which detection area is in what direction
-func initializeDetectionAreaVars():
-	directionDetectionArea[Vector3(0,0,-1)] = $Forward
-	directionDetectionArea[Vector3(0,0,1)] = $Backward
-	directionDetectionArea[Vector3(1,0,0)] = $Left
-	directionDetectionArea[Vector3(-1,0,0)] = $Right
-	
-	for area in directionDetectionArea.values():
-		var dictionary : Dictionary = {}
-		# For area, set empty dictionary for current things in area
-		detectionAreaThings[area] = dictionary
-		area.bodyEnteredCircumstances.connect(detectionAreaEntered)
-		area.bodyExitedCircumstances.connect(detectionAreaExited)
-
+	look_at(position + direction)
 
 # Idk what "body" is (The type, like CharacterBody3D)
-func detectionAreaEntered(area : Area3D, body):
+func detectionAreaEntered(body):
 	# At the area, add body to array of things in it
-	detectionAreaThings[area][body] = 0
+	thingsInDetectionArea[body] = 0
+	calculateCanMove()
 
-func detectionAreaExited(area : Area3D, body):
-	detectionAreaThings[area].erase(body)
+func detectionAreaExited(body):
+	if(thingsInDetectionArea.has(body)):
+		thingsInDetectionArea.erase(body)
