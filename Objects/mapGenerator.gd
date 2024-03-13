@@ -2,12 +2,15 @@ extends Node3D
 
 class_name MapGenerator
 
+signal updateScore(score : float)
+
 # The basic idea for this class is that there are strips of the map rather than individual blocks.
 # Each strip is either ground or water, and if land, forest, road, or train.
 @export var roadScene : PackedScene
 @export var forestScene : PackedScene
+@export var trainScene : PackedScene
 
-@onready var modules : Array[PackedScene] = [roadScene, forestScene] # Houses all of the packed scenes for easy shuffling
+@onready var modules : Array[PackedScene] = [roadScene, forestScene, trainScene] # Houses all of the packed scenes for easy shuffling
 @onready var currentMap : Array = [] # Houses all of the strips for easy access
 @onready var currentStripPosition : int = -Constants.mapStripsBehindPlayer # the id of the current strip (To position one after another)
 
@@ -35,3 +38,8 @@ func generateNextMapStrip():
 	instancedScene.position = Vector3(0, 0, -currentStripPosition * Constants.blockSize)
 	
 	currentStripPosition += 1
+	addScore(1)
+
+
+func addScore(score : float):
+	updateScore.emit(score)

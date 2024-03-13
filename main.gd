@@ -4,13 +4,17 @@ extends Node3D
 @export var cameraOrigin : Node3D
 @export var player : Player
 
-var score : int = 0
+var score : int = 0 : set = setScore
 # Used for extending map ahead of player
 var lowestStripID : int = -Constants.mapStripsBehindPlayer # Basically pos of first strip, aka strip behind player
 var highestStripID : int = Constants.mapStripsInFrontPlayer # mapAmountOfStrips ahead of mapStripsBehindPlayer
 var playerHighestStripPos : float = 0 # To keep track if the player went forward or backward
 
 var cameraTargetPosition : Vector3 = Vector3.ZERO # For smoothly lerping between current and target position
+
+func _ready():
+	generateNewStrips(playerHighestStripPos)
+	score = 0
 
 
 func _process(delta):
@@ -39,10 +43,11 @@ func generateNewStrips(playerStripID : float):
 func updateCameraPosition(playerStripID : float):
 	# Negative z is forward, player strip ID only goes up
 	cameraOrigin.position.z = lerp(cameraOrigin.position.z, -playerStripID * Constants.blockSize, 0.1)
+	# Move with player x
+	cameraOrigin.position.x = lerp(cameraOrigin.position.x, player.position.x, 0.1)
 
-# Updates the score and lowest and highest stripIDS
+# Updates the lowest and highest stripIDS
 func updateFromPlayerStrip(playerStripID : float):
-	updateScore(playerStripID)
 	# Max for checking whether to actually lower or higher it (since chunking system wack)
 	lowestStripID = playerHighestStripPos - Constants.mapStripsBehindPlayer
 	highestStripID = playerHighestStripPos + Constants.mapStripsInFrontPlayer
@@ -55,6 +60,10 @@ func isPlayerDead():
 		pass # Replace with endGame() function
 
 
-func updateScore(score : int):
-	self.score = score
+func addScore(number : int):
+	setScore(score + number)
+
+
+func setScore(number : int):
+	score = number
 	$UI/Score.text = str("Score: ", score) # TEMPORARY!!

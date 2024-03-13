@@ -1,6 +1,5 @@
 extends Node3D
 
-@export var isGoingLeft : bool = true
 @export var carScene : PackedScene
 
 @onready var lengthOfRoad = Constants.widthOfMap
@@ -23,6 +22,7 @@ func resizeRoad(width : float):
 func spawnCar():
 	var car := carScene.instantiate()
 	car.position = carSpawningPoint.position
+	car.carCrashed.connect(carCrashed)
 	add_child(car)
 
 
@@ -37,6 +37,10 @@ func carSpawningTimerEnded():
 	spawnCar()
 	randomizeCarTimer()
 	carSpawningTimer.start()
+
+# When a car crashes, it sends signal to give player +~30 score
+func carCrashed(score : float):
+	get_parent().addScore(score) # Just call the addScore signal
 
 
 func randomizeCarTimer():

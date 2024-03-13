@@ -2,14 +2,16 @@ extends CharacterBody3D
 
 class_name Car
 
-@export var collisionShape : CollisionShape3D # For turning off collisions
+signal carCrashed(score : int) # Score = how much score you get for crashing
 
+@export var collisionShape : CollisionShape3D # For turning off collisions
 # (Rotates vector based on rotation, as I want it to go locally left not globally left.)
 @onready var direction : Vector3 = Vector3(-1, 0, 0).rotated(Vector3.UP, global_rotation.y)
 
 
 var thingsInDetectionArea : Dictionary # Key: object's collision thing, Value: 0
 var crashed : bool = false
+
 
 func _ready():
 	# Jumpstart velocity
@@ -38,7 +40,6 @@ func isCollidedWithPlayer() -> bool:
 		
 		if(collision.get_collider() is Player):
 			return true
-	
 	return false
 
 # Moves in the general direction of left.
@@ -52,6 +53,8 @@ func brake(delta : float):
 
 # For actually looking like it crashed
 func doCrash():
+	var carCrashScore : int = Constants.carCrashScore # no fancy equation for scoring because velocity is below 0 for some reason
+	carCrashed.emit(carCrashScore)
 	crashed = true
 	# Make collisions with player no longer work
 	collisionShape.disabled = true

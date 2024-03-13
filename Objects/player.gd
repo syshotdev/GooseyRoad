@@ -24,8 +24,8 @@ func _physics_process(delta):
 		extraBooleanForDelay = true
 	elif(isDirectionMovable(lastDirection)):
 		targetPos += lastDirection # Target position
-		lastDirection = Vector3.ZERO
-		extraBooleanForDelay = false
+		lastDirection = Vector3.ZERO # Reset direction
+		extraBooleanForDelay = false # Reset delay
 
 
 func _input(event):
@@ -37,6 +37,7 @@ func _input(event):
 	# If direction is 0, don't move on cause we didn't move
 	if(direction == Vector3.ZERO):
 		return
+	
 	rotateGooseInDir(direction)
 	lastDirection = direction
 	playerMoved.emit(position)

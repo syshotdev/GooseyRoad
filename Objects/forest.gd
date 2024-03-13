@@ -5,12 +5,12 @@ extends Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	generateForest(Constants.widthOfMap/2)
+	generateForest(Constants.treesPerForest)
 
 
 func generateForest(amountOfTrees):
 	var stripNumbers : Array[int] = []
-	for index in range(Constants.widthOfMap):
+	for index in range(Constants.widthOfMap / 2):
 		stripNumbers.append(index)
 	
 	if(amountOfTrees > stripNumbers.size()):

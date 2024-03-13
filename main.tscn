@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bex08a2uird62"]
+[gd_scene load_steps=7 format=3 uid="uid://bex08a2uird62"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_2sldp"]
 [ext_resource type="PackedScene" uid="uid://clfk2e33kplw3" path="res://Objects/player.tscn" id="1_d4kpf"]
 [ext_resource type="PackedScene" uid="uid://mlaxwejpmr84" path="res://Objects/map_generator.tscn" id="3_4pb7w"]
 [ext_resource type="PackedScene" uid="uid://dbj68x4qaur2d" path="res://Objects/forest.tscn" id="3_h6gyi"]
+[ext_resource type="PackedScene" uid="uid://dxkfheoedlyrb" path="res://Objects/trainTracks.tscn" id="4_k167m"]
 
 [sub_resource type="Environment" id="Environment_sks4p"]
 
@@ -21,6 +22,7 @@ transform = Transform3D(0.218798, -0.619793, 0.753647, 0.172802, 0.784766, 0.595
 
 [node name="MapGenerator" parent="." instance=ExtResource("3_4pb7w")]
 forestScene = ExtResource("3_h6gyi")
+trainScene = ExtResource("4_k167m")
 
 [node name="Player" parent="." instance=ExtResource("1_d4kpf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -33,7 +35,6 @@ transform = Transform3D(1, 0, 0, 0, 0.707106, 0.707106, 0, -0.707106, 0.707106, 
 
 [node name="Camera3D" type="Camera3D" parent="Camera Yaw Pivot/Camera Pitch Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
-projection = 1
 fov = 80.0
 size = 7.0
 
@@ -51,4 +52,5 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 36
 
+[connection signal="updateScore" from="MapGenerator" to="." method="addScore"]
 [connection signal="playerMoved" from="Player" to="." method="playerMoved"]

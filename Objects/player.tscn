@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://box5ejakp8ec8" path="res://Models/duck.dae" id="2_kkexh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qe5cu"]
-height = 2.12759
+height = 1.16163
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pwoya"]
 size = Vector3(0.5, 0.5, 0.8)
@@ -19,7 +19,7 @@ shape = SubResource("CapsuleShape3D_qe5cu")
 [node name="Goose Pivot" type="Node3D" parent="."]
 
 [node name="Goose" parent="Goose Pivot" instance=ExtResource("2_kkexh")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -1, 0)
+transform = Transform3D(-2.62268e-08, 0, -0.6, 0, 0.6, 0, 0.6, 0, -2.62268e-08, 0, -0.5, 0)
 
 [node name="Area3D" type="Area3D" parent="."]
 
