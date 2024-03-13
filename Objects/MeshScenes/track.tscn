@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bphovdf3rtmkp"]
+
+[ext_resource type="PackedScene" uid="uid://dl41gr6bfex5m" path="res://Models/track.dae" id="1_doxbg"]
+
+[node name="track" instance=ExtResource("1_doxbg")]
+transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, 0, 0, 0)

@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://dxkfheoedlyrb"]
+
+[ext_resource type="Script" path="res://Objects/StripTypes/trainTracks.gd" id="1_qcm4l"]
+[ext_resource type="PackedScene" uid="uid://cbryhvua33vf7" path="res://Objects/Vehicle/train.tscn" id="2_d7d48"]
+[ext_resource type="PackedScene" uid="uid://bphovdf3rtmkp" path="res://Objects/MeshScenes/track.tscn" id="3_xu27f"]
+[ext_resource type="Texture2D" uid="uid://dylgipt0sqyg6" path="res://Objects/Textures/TrainTrackNoiseTexture.tres" id="4_chg6c"]
+[ext_resource type="PackedScene" uid="uid://bmia717s3u73t" path="res://Objects/MeshScenes/entrance_and_exit_component.tscn" id="4_kmu2j"]
+[ext_resource type="PackedScene" uid="uid://cc2mvth3somss" path="res://Objects/MeshScenes/map_shape.tscn" id="5_n8gwj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uap7l"]
+size = Vector3(1, 10, 0.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_an7i8"]
+albedo_color = Color(0.827451, 0.498039, 0.286275, 1)
+roughness = 0.0
+normal_texture = ExtResource("4_chg6c")
+
+[node name="TrainTracks" type="Node3D" node_paths=PackedStringArray("trainSpawningTimer", "trainSpawningPoint", "trainRemovalArea", "trackSpawningPoint")]
+script = ExtResource("1_qcm4l")
+trainScene = ExtResource("2_d7d48")
+trainTracksScene = ExtResource("3_xu27f")
+trainSpawningTimer = NodePath("trainSpawningTimer")
+trainSpawningPoint = NodePath("trainSpawningPoint")
+trainRemovalArea = NodePath("trainRemovalArea")
+trackSpawningPoint = NodePath("trackSpawningPoint")
+
+[node name="EntranceAndExitComponent" parent="." instance=ExtResource("4_kmu2j")]
+
+[node name="trainSpawningPoint" type="Node3D" parent="."]
+
+[node name="trackSpawningPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215914, 0)
+
+[node name="trainSpawningTimer" type="Timer" parent="."]
+
+[node name="trainRemovalArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="trainRemovalArea"]
+shape = SubResource("BoxShape3D_uap7l")
+
+[node name="CollisionRoad" parent="." instance=ExtResource("5_n8gwj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0769837, 0)
+material = SubResource("StandardMaterial3D_an7i8")
+
+[connection signal="timeout" from="trainSpawningTimer" to="." method="trainSpawningTimerEnded"]
+[connection signal="body_entered" from="trainRemovalArea" to="." method="trainRemovalAreaEntered"]

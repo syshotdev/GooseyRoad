@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cafe0676jwfgj"]
+
+[ext_resource type="PackedScene" uid="uid://cc2mvth3somss" path="res://Objects/MeshScenes/map_shape.tscn" id="1_def5b"]
+[ext_resource type="Material" uid="uid://bvnastusom08f" path="res://Objects/Materials/forest.tres" id="2_sitjt"]
+
+[node name="Plains" type="Node3D"]
+
+[node name="RoadMesh" parent="." instance=ExtResource("1_def5b")]
+material_override = ExtResource("2_sitjt")

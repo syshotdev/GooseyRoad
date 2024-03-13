@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://bex08a2uird62"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_2sldp"]
+[ext_resource type="PackedScene" uid="uid://clfk2e33kplw3" path="res://Objects/player.tscn" id="1_d4kpf"]
+[ext_resource type="PackedScene" uid="uid://mlaxwejpmr84" path="res://Objects/map_generator.tscn" id="3_4pb7w"]
+
+[sub_resource type="Environment" id="Environment_sks4p"]
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("mapGenerator", "cameraOrigin", "player")]
+script = ExtResource("1_2sldp")
+mapGenerator = NodePath("MapGenerator")
+cameraOrigin = NodePath("Camera Yaw Pivot")
+player = NodePath("Player")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sks4p")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.218798, -0.619793, 0.753647, 0.172802, 0.784766, 0.595216, -0.960347, 0, 0.278807, 0, 5.34271, 0)
+
+[node name="MapGenerator" parent="." instance=ExtResource("3_4pb7w")]
+
+[node name="Player" parent="." instance=ExtResource("1_d4kpf")]
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0.00106465, 0, -0.00106465, 0.999999, 0, 0.47, 0)
+
+[node name="Camera Yaw Pivot" type="Node3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 1, 0)
+
+[node name="Camera Pitch Pivot" type="Node3D" parent="Camera Yaw Pivot"]
+transform = Transform3D(1, 0, 0, 0, 0.707106, 0.707106, 0, -0.707106, 0.707106, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Camera Yaw Pivot/Camera Pitch Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+fov = 80.0
+size = 7.0
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Score" type="Label" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 36
+
+[connection signal="updateScore" from="MapGenerator" to="." method="addScore"]
+[connection signal="playerMoved" from="Player" to="." method="playerMoved"]

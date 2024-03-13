@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://djyqnndv57eo1"]
+
+[ext_resource type="Script" path="res://Objects/StripTypes/road.gd" id="1_kgcql"]
+[ext_resource type="PackedScene" uid="uid://beguuue73mcmk" path="res://Objects/Vehicle/car.tscn" id="2_uupuq"]
+[ext_resource type="PackedScene" uid="uid://bmia717s3u73t" path="res://Objects/MeshScenes/entrance_and_exit_component.tscn" id="3_xqlc0"]
+[ext_resource type="PackedScene" uid="uid://cc2mvth3somss" path="res://Objects/MeshScenes/map_shape.tscn" id="4_840i4"]
+[ext_resource type="Material" uid="uid://cnnw2qw2ct1rd" path="res://Objects/Materials/road.tres" id="4_i05pe"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6eijy"]
+size = Vector3(1, 10, 1)
+
+[node name="Road" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+script = ExtResource("1_kgcql")
+carScene = ExtResource("2_uupuq")
+
+[node name="EntranceAndExitComponent" parent="." instance=ExtResource("3_xqlc0")]
+
+[node name="RoadMesh" parent="." instance=ExtResource("4_840i4")]
+material_override = ExtResource("4_i05pe")
+
+[node name="CarSpawningPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.6, 0)
+
+[node name="CarRemovalArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CarRemovalArea"]
+transform = Transform3D(0.999924, 0.0123043, 0, -0.0123043, 0.999924, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_6eijy")
+
+[node name="CarSpawningTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="area_entered" from="CarRemovalArea" to="." method="carRemovalAreaEntered"]
+[connection signal="timeout" from="CarSpawningTimer" to="." method="carSpawningTimerEnded"]

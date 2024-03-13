@@ -1,0 +1,16 @@
+[gd_scene load_steps=7 format=3 uid="uid://mlaxwejpmr84"]
+
+[ext_resource type="Script" path="res://Objects/mapGenerator.gd" id="1_1mscd"]
+[ext_resource type="PackedScene" uid="uid://djyqnndv57eo1" path="res://Objects/StripTypes/road.tscn" id="2_we645"]
+[ext_resource type="PackedScene" uid="uid://dxkfheoedlyrb" path="res://Objects/StripTypes/trainTracks.tscn" id="3_5kto4"]
+[ext_resource type="PackedScene" uid="uid://cphhw3bmvaoyn" path="res://Objects/StripTypes/river.tscn" id="4_3jcnq"]
+[ext_resource type="PackedScene" uid="uid://dbj68x4qaur2d" path="res://Objects/StripTypes/forest.tscn" id="5_xa13s"]
+[ext_resource type="PackedScene" uid="uid://cafe0676jwfgj" path="res://Objects/StripTypes/plains.tscn" id="6_b6ws7"]
+
+[node name="MapGenerator" type="Node3D"]
+script = ExtResource("1_1mscd")
+roadScene = ExtResource("2_we645")
+trainScene = ExtResource("3_5kto4")
+riverScene = ExtResource("4_3jcnq")
+forestScene = ExtResource("5_xa13s")
+plainsScene = ExtResource("6_b6ws7")

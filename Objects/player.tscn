@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://clfk2e33kplw3"]
+
+[ext_resource type="Script" path="res://Objects/player.gd" id="1_di86l"]
+[ext_resource type="PackedScene" uid="uid://box5ejakp8ec8" path="res://Models/duck.dae" id="2_kkexh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qe5cu"]
+height = 1.16163
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pwoya"]
+size = Vector3(0.5, 0.5, 0.8)
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("detectionArea")]
+collision_mask = 3
+script = ExtResource("1_di86l")
+detectionArea = NodePath("Area3D")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_qe5cu")
+
+[node name="Goose Pivot" type="Node3D" parent="."]
+
+[node name="Goose" parent="Goose Pivot" instance=ExtResource("2_kkexh")]
+transform = Transform3D(-2.62268e-08, 0, -0.6, 0, 0.6, 0, 0.6, 0, -2.62268e-08, 0, -0.5, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1)
+shape = SubResource("BoxShape3D_pwoya")
+
+[connection signal="body_entered" from="Area3D" to="." method="detectionAreaEntered"]
+[connection signal="body_exited" from="Area3D" to="." method="detectionAreaExited"]
