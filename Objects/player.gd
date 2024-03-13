@@ -12,7 +12,7 @@ var thingsInDetectionArea : Dictionary # Key: thing inside area, Value: 0
 var extraBooleanForDelay : bool = false
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	# Smoothly go to target pos
 	position = lerp(position, targetPos, 0.5)
 	
@@ -22,7 +22,7 @@ func _physics_process(delta):
 	# Waits an extra tick lol (for waiting till area3d updates what's inside it)
 	if(extraBooleanForDelay == false):
 		extraBooleanForDelay = true
-	elif(isDirectionMovable(lastDirection)):
+	elif(isCurrentDirectionMovable()):
 		targetPos += lastDirection # Target position
 		lastDirection = Vector3.ZERO # Reset direction
 		extraBooleanForDelay = false # Reset delay
@@ -62,7 +62,7 @@ func getActionJustVectored() -> Vector3:
 	return output
 
 # Checks whether the current direction is a moveable one.
-func isDirectionMovable(direction : Vector3) -> bool:
+func isCurrentDirectionMovable() -> bool:
 	# If we're trying to move in a direction and something blocking, return false
 	if(thingsInDetectionArea.size() > 0):
 		return false

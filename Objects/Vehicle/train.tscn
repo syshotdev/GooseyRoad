@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cbryhvua33vf7"]
 
-[ext_resource type="Script" path="res://Objects/train.gd" id="1_xts5n"]
-[ext_resource type="PackedScene" uid="uid://c2q2xxnhogcat" path="res://Objects/train_puller.tscn" id="2_sexh3"]
-[ext_resource type="PackedScene" uid="uid://cf6c43bbjwbu8" path="res://Objects/train_car.tscn" id="3_varxc"]
+[ext_resource type="Script" path="res://Objects/Vehicle/train.gd" id="1_xts5n"]
+[ext_resource type="PackedScene" uid="uid://c2q2xxnhogcat" path="res://Objects/MeshScenes/train_puller.tscn" id="2_sexh3"]
+[ext_resource type="PackedScene" uid="uid://cf6c43bbjwbu8" path="res://Objects/MeshScenes/train_car.tscn" id="3_varxc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u1dwb"]
 size = Vector3(2.91284, 1.25391, 0.5)

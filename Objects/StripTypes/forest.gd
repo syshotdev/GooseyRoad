@@ -10,6 +10,7 @@ func _ready():
 
 func generateForest(amountOfTrees):
 	var stripNumbers : Array[int] = []
+	stripNumbers.resize(Constants.widthOfMap / 2)
 	for index in range(Constants.widthOfMap / 2):
 		stripNumbers.append(index)
 	

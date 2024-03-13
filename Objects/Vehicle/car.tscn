@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://beguuue73mcmk"]
 
-[ext_resource type="Script" path="res://Objects/car.gd" id="1_38bkv"]
+[ext_resource type="Script" path="res://Objects/Vehicle/car.gd" id="1_38bkv"]
 [ext_resource type="PackedScene" uid="uid://bmuesdswidpml" path="res://Models/car.dae" id="2_55hg1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uxjdn"]

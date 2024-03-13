@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dphiobj1m1a88"]
+
+[ext_resource type="PackedScene" uid="uid://cmp78m8tts1ck" path="res://Models/tunnelEntrance.dae" id="1_ivjuw"]
+
+[node name="tunnelEntrance" instance=ExtResource("1_ivjuw")]
+
+[node name="Cube" parent="." index="0"]
+transform = Transform3D(-1.09278e-08, 0, 0.25, 0, 0.4, 0, -0.25, 0, -1.09278e-08, 0, 0, 0)

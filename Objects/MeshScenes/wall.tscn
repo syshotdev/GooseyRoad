@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cut6o236rw0ww"]
+
+[ext_resource type="Material" uid="uid://bet6nixb24ixd" path="res://Objects/Materials/grass.tres" id="1_3ngbt"]
+[ext_resource type="Material" uid="uid://boyq8adjheroc" path="res://Objects/Materials/ground.tres" id="2_ko24v"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cgr60"]
+size = Vector3(1, 5.16748, 1)
+
+[node name="Wall" type="StaticBody3D"]
+
+[node name="Grass" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.37985, 2.07817, 0)
+material_override = ExtResource("1_3ngbt")
+size = Vector3(10, 0.3, 1)
+
+[node name="Wall" type="CSGBox3D" parent="."]
+material_override = ExtResource("2_ko24v")
+size = Vector3(1, 4, 1)
+
+[node name="MapCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.586182, 0)
+shape = SubResource("BoxShape3D_cgr60")

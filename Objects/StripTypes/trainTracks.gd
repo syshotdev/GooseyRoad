@@ -1,17 +1,28 @@
 extends Node3D
 
 @export var trainScene : PackedScene
+@export var trainTracksScene : PackedScene
 @export var trainSpawningTimer : Timer
 @export var trainSpawningPoint : Node3D
 @export var trainRemovalArea : Area3D
+@export var trackSpawningPoint : Node3D
 
 @onready var lengthOfRoad = Constants.widthOfMap
 
 # Set up road
 func _ready():
 	resizeRoad(lengthOfRoad)
+	makeTrainTracks()
 	randomizeTrainTimer()
 	trainSpawningTimer.start()
+
+
+func makeTrainTracks():
+	for i in range(lengthOfRoad):
+		var trainTrack := trainTracksScene.instantiate()
+		add_child(trainTrack)
+		trainTrack.position = trackSpawningPoint.position
+		trainTrack.position.x = i - lengthOfRoad / 2
 
 
 func resizeRoad(width : float):

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dbj68x4qaur2d"]
 
-[ext_resource type="Script" path="res://Objects/forest.gd" id="1_6iwgn"]
-[ext_resource type="PackedScene" uid="uid://cc2mvth3somss" path="res://Objects/road_mesh.tscn" id="1_crdo8"]
-[ext_resource type="PackedScene" uid="uid://b3ysr1hbf2b5o" path="res://Objects/tree.tscn" id="2_fin06"]
+[ext_resource type="Script" path="res://Objects/StripTypes/forest.gd" id="1_6iwgn"]
+[ext_resource type="PackedScene" uid="uid://cc2mvth3somss" path="res://Objects/MeshScenes/map_shape.tscn" id="1_crdo8"]
+[ext_resource type="PackedScene" uid="uid://b3ysr1hbf2b5o" path="res://Objects/MeshScenes/tree.tscn" id="2_fin06"]
 [ext_resource type="Material" uid="uid://bvnastusom08f" path="res://Objects/Materials/forest.tres" id="4_5kx4k"]
 
 [node name="forest" type="Node3D"]

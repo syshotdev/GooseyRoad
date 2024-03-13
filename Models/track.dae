@@ -5,13 +5,13 @@
       <author>Blender User</author>
       <authoring_tool>Blender 3.4.1</authoring_tool>
     </contributor>
-    <created>2024-03-12T16:28:12</created>
-    <modified>2024-03-12T16:28:12</modified>
+    <created>2024-03-12T20:29:39</created>
+    <modified>2024-03-12T20:29:39</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_effects>
-    <effect id="Trunk-effect">
+    <effect id="TrackWood-effect">
       <profile_COMMON>
         <technique sid="common">
           <lambert>
@@ -19,7 +19,7 @@
               <color sid="emission">0 0 0 1</color>
             </emission>
             <diffuse>
-              <color sid="diffuse">0.2422739 0.04068846 0 1</color>
+              <color sid="diffuse">0.6839238 0.1040506 0 1</color>
             </diffuse>
             <index_of_refraction>
               <float sid="ior">1.45</float>
@@ -36,7 +36,7 @@
               <color sid="emission">0 0 0 1</color>
             </emission>
             <diffuse>
-              <color sid="diffuse">0.01657033 0.01657033 0.01657033 1</color>
+              <color sid="diffuse">0.08180738 0.08180738 0.08180738 1</color>
             </diffuse>
             <index_of_refraction>
               <float sid="ior">1.45</float>
@@ -48,8 +48,8 @@
   </library_effects>
   <library_images/>
   <library_materials>
-    <material id="Trunk-material" name="Trunk">
-      <instance_effect url="#Trunk-effect"/>
+    <material id="TrackWood-material" name="TrackWood">
+      <instance_effect url="#TrackWood-effect"/>
     </material>
     <material id="TrackColor-material" name="TrackColor">
       <instance_effect url="#TrackColor-effect"/>
@@ -90,7 +90,7 @@
         <vertices id="Cube_008-mesh-vertices">
           <input semantic="POSITION" source="#Cube_008-mesh-positions"/>
         </vertices>
-        <triangles material="Trunk-material" count="68">
+        <triangles material="TrackWood-material" count="68">
           <input semantic="VERTEX" source="#Cube_008-mesh-vertices" offset="0"/>
           <input semantic="NORMAL" source="#Cube_008-mesh-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#Cube_008-mesh-map-0" offset="2" set="0"/>
@@ -112,7 +112,7 @@
         <instance_geometry url="#Cube_008-mesh" name="Track">
           <bind_material>
             <technique_common>
-              <instance_material symbol="Trunk-material" target="#Trunk-material">
+              <instance_material symbol="TrackWood-material" target="#TrackWood-material">
                 <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
               </instance_material>
               <instance_material symbol="TrackColor-material" target="#TrackColor-material">

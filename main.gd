@@ -49,8 +49,8 @@ func updateCameraPosition(playerStripID : float):
 # Updates the lowest and highest stripIDS
 func updateFromPlayerStrip(playerStripID : float):
 	# Max for checking whether to actually lower or higher it (since chunking system wack)
-	lowestStripID = playerHighestStripPos - Constants.mapStripsBehindPlayer
-	highestStripID = playerHighestStripPos + Constants.mapStripsInFrontPlayer
+	lowestStripID = playerStripID - Constants.mapStripsBehindPlayer
+	highestStripID = playerStripID + Constants.mapStripsInFrontPlayer
 
 
 func isPlayerDead():

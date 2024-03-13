@@ -1,0 +1,2 @@
+This directory has all of the imported scenes from meshes. The reason being, I reimport meshes very often, and I don't know how
+to make their forward direction to be the negative x direction. So I make a scene, and manually rotate the object. 
