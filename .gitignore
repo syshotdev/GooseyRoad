@@ -16,3 +16,5 @@ data_*/
 mono_crash.*.json
 =======
 >>>>>>> cfc0ed1 (First commit, added player movement and floor)
+# Ignore exports
+Exports
