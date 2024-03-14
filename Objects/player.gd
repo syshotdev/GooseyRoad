@@ -5,19 +5,22 @@ class_name Player
 signal playerMoved(newPos : Vector3)
 
 @export var detectionArea : Area3D
+@export var waterTimer : Timer
 
 @onready var targetPos : Vector3 = global_position
 var lastDirection : Vector3 = Vector3.ZERO
 var thingsInDetectionArea : Dictionary # Key: thing inside area, Value: 0
 var extraBooleanForDelay : bool = false
-var falling : bool = false
+var onRaft : bool = false
+var inRiver : bool = false
 
 
 func _physics_process(delta : float):
 	# Smoothly go to target pos
 	position = lerp(position, targetPos, 0.5)
-	if(falling):
-		targetPos.x -= 9.8 * delta
+	
+	if(!onRaft and inRiver):
+		targetPos.y -= 1.0 * delta
 	
 	# If we didn't move at all, return
 	if(lastDirection == Vector3.ZERO):
@@ -44,8 +47,8 @@ func _input(event):
 	rotateGooseInDir(direction)
 	lastDirection = direction
 	# Snap to grid
-	position.x = roundf(position.x)
-	position.z = roundf(position.z)
+	targetPos.x = roundf(targetPos.x)
+	targetPos.z = roundf(targetPos.z)
 	playerMoved.emit(position)
 
 

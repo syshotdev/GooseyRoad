@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://UI.gd" id="1_ma66r"]
 
-[node name="UI" type="Control" node_paths=PackedStringArray("scoreLabel", "instructionText")]
+[node name="UI" type="Control" node_paths=PackedStringArray("scoreLabel", "instructionLabel", "diedLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +11,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ma66r")
 scoreLabel = NodePath("HBoxContainer/Score")
-instructionText = NodePath("VBoxContainer")
+instructionLabel = NodePath("VBoxContainer")
+diedLabel = NodePath("VBoxContainer2/Label")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -53,3 +54,23 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 64
 text = "TO START"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -235.5
+offset_top = -41.5
+offset_right = 235.5
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer2"]
+modulate = Color(0.854902, 0.403922, 0.0705882, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 120
+text = "YOU'RE DIED11!!"

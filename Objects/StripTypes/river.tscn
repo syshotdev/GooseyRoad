@@ -30,7 +30,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.279881, 0)
 [node name="EntranceAndExitComponent" parent="." instance=ExtResource("2_sweww")]
 
 [node name="FloorMesh" parent="." instance=ExtResource("3_ys5eq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.40327, 0)
+size = Vector3(15, 2.10654, 1)
 material = ExtResource("4_sg33y")
 
 [node name="MapWalls" parent="." instance=ExtResource("4_swwrp")]

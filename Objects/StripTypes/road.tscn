@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://Objects/StripTypes/road.gd" id="1_kgcql"]
 [ext_resource type="PackedScene" uid="uid://beguuue73mcmk" path="res://Objects/Vehicle/car.tscn" id="2_uupuq"]
-[ext_resource type="PackedScene" uid="uid://bmia717s3u73t" path="res://Objects/MeshScenes/MapStuff/entrance_and_exit_component.tscn" id="3_xqlc0"]
-[ext_resource type="PackedScene" uid="uid://cc2mvth3somss" path="res://Objects/MeshScenes/MapStuff/map_walls.tscn" id="4_840i4"]
+[ext_resource type="PackedScene" uid="uid://cc2mvth3somss" path="res://Objects/MeshScenes/MapStuff/map_walls.tscn" id="3_b3vqu"]
 [ext_resource type="Material" uid="uid://cnnw2qw2ct1rd" path="res://Objects/Materials/road.tres" id="4_i05pe"]
-[ext_resource type="PackedScene" uid="uid://c7yvf1hywd1jg" path="res://Objects/MeshScenes/MapStuff/map_floor.tscn" id="4_qiyl7"]
+[ext_resource type="PackedScene" uid="uid://c7yvf1hywd1jg" path="res://Objects/MeshScenes/MapStuff/map_floor.tscn" id="4_s5bcq"]
+[ext_resource type="PackedScene" uid="uid://bmia717s3u73t" path="res://Objects/MeshScenes/MapStuff/entrance_and_exit_component.tscn" id="6_0j047"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6eijy"]
 size = Vector3(1, 10, 1)
@@ -15,12 +15,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 script = ExtResource("1_kgcql")
 carScene = ExtResource("2_uupuq")
 
-[node name="Walls" parent="." instance=ExtResource("4_840i4")]
+[node name="Walls" parent="." instance=ExtResource("3_b3vqu")]
 
-[node name="FloorMesh" parent="." instance=ExtResource("4_qiyl7")]
+[node name="FloorMesh" parent="." instance=ExtResource("4_s5bcq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.85, 0)
+size = Vector3(15, 2, 1)
 material = ExtResource("4_i05pe")
 
-[node name="EntranceAndExitComponent" parent="." instance=ExtResource("3_xqlc0")]
+[node name="EntranceAndExitComponent" parent="." instance=ExtResource("6_0j047")]
 
 [node name="CarSpawningPoint" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.6, 0)

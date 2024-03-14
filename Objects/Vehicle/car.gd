@@ -5,6 +5,7 @@ class_name Car
 signal carCrashed(score : int) # Score = how much score you get for crashing
 
 @export var collisionShape : CollisionShape3D # For turning off collisions
+@export var particleEmitter : GPUParticles3D # For particles and crash
 # (Rotates vector based on rotation, as I want it to go locally left not globally left.)
 @onready var direction : Vector3 = Vector3(-1, 0, 0).rotated(Vector3.UP, global_rotation.y)
 
@@ -53,6 +54,7 @@ func brake(delta : float):
 
 # For actually looking like it crashed
 func doCrash():
+	particleEmitter.emitting = true
 	var carCrashScore : int = Constants.carCrashScore # no fancy equation for scoring because velocity is below 0 for some reason
 	carCrashed.emit(carCrashScore)
 	crashed = true

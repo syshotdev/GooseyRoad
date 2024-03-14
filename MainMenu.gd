@@ -9,7 +9,6 @@ var score : int = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	resetGame()
-	pauseGame()
 
 
 func _input(event):
@@ -30,6 +29,8 @@ func resetGame():
 	main.addAndUpdateScore.connect(addScore)
 	
 	score = 0
+	
+	pauseGame()
 
 
 func startGame():
@@ -38,7 +39,10 @@ func startGame():
 
 # When goose dies
 func died():
+	UI.died()
 	pauseGame()
+	var timer := get_tree().create_timer(2)
+	timer.timeout.connect(resetGame)
 
 
 func pauseGame():
@@ -50,5 +54,5 @@ func addScore(number : int):
 
 
 func setScore(number : int):
-	score = number + score
+	score = number
 	UI.setScore(number)

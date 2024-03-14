@@ -13,21 +13,24 @@ signal carCrashed(score : float)
 @export var forestScene : PackedScene
 @export var plainsScene : PackedScene
 
-@onready var modules : Array[PackedScene] = [roadScene, forestScene, trainScene, riverScene, plainsScene] # Houses all of the packed scenes for easy shuffling
+@onready var modules : Array[PackedScene] = [roadScene, forestScene, trainScene, riverScene] # Houses all of the packed scenes for easy shuffling
 @onready var currentMap : Array = [] # Houses all of the strips for easy access
 @onready var currentStripPosition : int = -Constants.mapStripsBehindPlayer # the id of the current strip (To position one after another)
 @onready var probabilities : Dictionary = { # Key: Scene, Value: Entries into pool of chance
 	roadScene : 10,
 	forestScene : 30,
 	trainScene : 20,
-	riverScene : 8,
-	plainsScene : 1,
+	riverScene : 4,
 }
 
 
 func _ready():
 	var maxStripPosition = currentStripPosition
 	while currentStripPosition < Constants.mapAmountOfStrips - Constants.mapStripsBehindPlayer:
+		if(currentStripPosition <= 0):
+			generateStrip(plainsScene, 1)
+			continue # Don't generate next segment
+		
 		generateNextMapSegment() # Pregenerate map
 
 

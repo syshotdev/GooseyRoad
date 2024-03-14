@@ -44,6 +44,7 @@ transform = Transform3D(1, 0, 0, 0, 0.707106, 0.707106, 0, -0.707106, 0.707106, 
 
 [node name="Camera3D" type="Camera3D" parent="Camera Yaw Pivot/Camera Pitch Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+projection = 1
 fov = 80.0
 size = 7.0
 

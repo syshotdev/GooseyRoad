@@ -19,7 +19,7 @@ const blockSize := 1.0 # Meters
 const widthOfMap := blockSize * 20.0 # Width of map in block chunks
 
 const mapAmountOfStrips := 30 # Length of map (in strips)
-const mapStripsBehindPlayer := 14 # How many strips are behind the player
+const mapStripsBehindPlayer := 10 # How many strips are behind the player
 const mapStripsInFrontPlayer := mapAmountOfStrips - mapStripsBehindPlayer
 
 const treesPerForest := widthOfMap / 4

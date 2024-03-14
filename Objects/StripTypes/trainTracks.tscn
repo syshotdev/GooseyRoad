@@ -23,7 +23,9 @@ trackSpawningPoint = NodePath("trackSpawningPoint")
 [node name="EntranceAndExitComponent" parent="." instance=ExtResource("4_oal83")]
 
 [node name="FloorMesh" parent="." instance=ExtResource("5_42sk1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.04951, 0)
 material_override = ExtResource("7_1noty")
+size = Vector3(15, 2.39902, 1)
 
 [node name="CollisionRoad" parent="." instance=ExtResource("7_ma13n")]
 

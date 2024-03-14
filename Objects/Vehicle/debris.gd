@@ -28,20 +28,19 @@ func _ready():
 
 func _process(delta):
 	if(player != null):
-		player.targetPos = round(player.targetPos)
-		# Move player along with thing
-		player.targetPos.x = global_position.x
+		player.onRaft = true
+		if(player.targetPos.x - global_position.x < 0.3): # If the lpayer wants to move, let them move
+			player.targetPos.x = global_position.x
 		player.position.x = global_position.x
+		player.position.y = round(player.position.y)
 	
 	move(delta)
 	move_and_slide()
-
 
 # Moves in the general direction of left.
 func move(delta : float):
 	# Speed of car, delta, and direction of movement
 	velocity += Constants.debrisSpeed * delta * direction
-
 
 
 func makeLog(length : int):
@@ -70,4 +69,5 @@ func onBodyEntered(body):
 
 func onBodyExited(body):
 	if(body is Player):
+		player.onRaft = false
 		player = null

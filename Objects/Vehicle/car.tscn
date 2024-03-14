@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://beguuue73mcmk"]
+[gd_scene load_steps=6 format=3 uid="uid://beguuue73mcmk"]
 
 [ext_resource type="Script" path="res://Objects/Vehicle/car.gd" id="1_38bkv"]
 [ext_resource type="PackedScene" uid="uid://bmuesdswidpml" path="res://Models/car.dae" id="2_55hg1"]
+[ext_resource type="PackedScene" uid="uid://si010nsseq5y" path="res://Objects/Particles/sparks.tscn" id="2_j2u48"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uxjdn"]
 size = Vector3(6.5, 3, 2.8)
@@ -9,10 +10,16 @@ size = Vector3(6.5, 3, 2.8)
 [sub_resource type="BoxShape3D" id="BoxShape3D_nci6w"]
 size = Vector3(15, 3, 2.8)
 
-[node name="Car" type="CharacterBody3D" node_paths=PackedStringArray("collisionShape")]
+[node name="Car" type="CharacterBody3D" node_paths=PackedStringArray("collisionShape", "particleEmitter")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 script = ExtResource("1_38bkv")
 collisionShape = NodePath("CollisionShape3D")
+particleEmitter = NodePath("Sparks")
+
+[node name="Sparks" parent="." instance=ExtResource("2_j2u48")]
+transform = Transform3D(0.928492, 0.371352, 0, -0.371352, 0.928492, 0, 0, 0, 1, -1.39083, 1, 0)
+emitting = false
+one_shot = true
 
 [node name="car" parent="." instance=ExtResource("2_55hg1")]
 transform = Transform3D(-3.93403e-08, 0, 0.9, 0, 0.9, 0, -0.9, 0, -3.93403e-08, 0, 0, 0)

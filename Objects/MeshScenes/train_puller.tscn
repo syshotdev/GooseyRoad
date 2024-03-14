@@ -134,6 +134,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_r35r2")
 
 [node name="trainPuller" type="RigidBody3D"]
+collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-1.31134e-08, 0, 0.3, 0, 0.3, 0, -0.3, 0, -1.31134e-08, 0, 0, 0)

@@ -1,11 +1,14 @@
 extends Control
 
 @export var scoreLabel : Label
-@export var instructionText : Control
+@export var instructionLabel : Control
+@export var diedLabel : Label
 
 func _ready():
 	scoreLabel.visible = false
-	instructionText.visible = true
+	instructionLabel.visible = true
+	diedLabel.visible = false
+
 
 func setScore(score : int):
 	scoreLabel.text = "Score: " + str(score)
@@ -13,4 +16,9 @@ func setScore(score : int):
 
 func startGame():
 	scoreLabel.visible = true
-	instructionText.visible = false
+	instructionLabel.visible = false
+	diedLabel.visible = false
+
+
+func died():
+	diedLabel.visible = true

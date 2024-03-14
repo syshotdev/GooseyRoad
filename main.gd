@@ -59,7 +59,7 @@ func isPlayerDead():
 	var playerStripID : float = -player.position.z / Constants.blockSize # Calculates playerStripID from player pos
 	if(playerStripID < lowestStripID):
 		died.emit()
-	elif(player.position.y < -1):
+	elif(player.position.y < -0.5):
 		died.emit()
 
 # When vehicle crashes

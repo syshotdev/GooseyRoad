@@ -16,15 +16,16 @@ func _ready():
 	randomizeLogTimer()
 	debrisSpawningTimer.start()
 
-func _physics_process(delta):
-	if(player != null):
-		player.targetPos.y -= 9.8 * delta
-
 
 func resizeRoad(width : float):
 	debrisSpawningPoint.position.x = width / 2.0 # Make it on right
 	debrisRemovalArea.position.x = -(width + 4.0) / 2.0 # Make it on left
 	playerDownArea.scale.x = width
+
+
+func _physics_process(delta):
+	if(player != null):
+		player.inRiver = true
 
 
 func debrisSpawningTimerEnded():
@@ -40,7 +41,7 @@ func spawnDebris():
 
 
 func randomizeLogTimer():
-	debrisSpawningTimer.set_wait_time(randf_range(1, 5))
+	debrisSpawningTimer.set_wait_time(randf_range(1, 3))
 
 
 func debrisRemovalAreaEntered(body : Node3D):
@@ -49,11 +50,12 @@ func debrisRemovalAreaEntered(body : Node3D):
 	if(potentialDebris is Debris):
 		potentialDebris.queue_free()
 
-
+# For pulling player down into river
 func possiblePlayerBodyEntered(body):
 	if(body is Player):
 		player = body
 
 func possiblePlayerBodyExited(body):
 	if(body is Player):
+		body.inRiver = false
 		player = null

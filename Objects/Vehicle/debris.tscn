@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://kkdgygl2q1fi" path="res://Objects/MeshScenes/log.tscn" id="2_4eeiw"]
 [ext_resource type="PackedScene" uid="uid://c0lil5c38uw14" path="res://Objects/MeshScenes/lilly_pad.tscn" id="3_bqcog"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_mxwe0"]
-size = Vector3(1, 0.235, 0.5)
+[sub_resource type="BoxShape3D" id="BoxShape3D_1yfaj"]
+size = Vector3(1, 0.382568, 0.708557)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_phflv"]
 size = Vector3(1, 3, 0.98)
@@ -21,15 +21,14 @@ playerDetectionArea = NodePath("PlayerDetectionArea")
 [node name="LogSpawningPosition" type="Node3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_mxwe0")
+transform = Transform3D(1, 0, 0, 0, 1, -0.000366519, 0, 0.000366519, 1, 0, -0.251346, 0.00903264)
+shape = SubResource("BoxShape3D_1yfaj")
 
 [node name="PlayerDetectionArea" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 shape = SubResource("BoxShape3D_phflv")
-
-[node name="log" parent="." instance=ExtResource("2_4eeiw")]
 
 [connection signal="body_entered" from="PlayerDetectionArea" to="." method="onBodyEntered"]
 [connection signal="body_exited" from="PlayerDetectionArea" to="." method="onBodyExited"]
