@@ -9,6 +9,7 @@ const trainCarSize := 2.5
 @export var collisionShape : CollisionShape3D # For turning off collisions
 
 @onready var trainCarOrigin := $trainCarOrigin
+@onready var particleEmitter := $Sparks
 @onready var direction : Vector3 = Vector3(-1, 0, 0).rotated(Vector3.UP, global_rotation.y)# (Rotates vector based on rotation, as I want it to go locally left not globally left.)
 
 var physicsObjects : Array[RigidBody3D] = []
@@ -72,11 +73,13 @@ func move(delta : float):
 
 # For actually looking like it crashed
 func doCrash():
+	particleEmitter.emitting = true
 	var trainCrashScore : int = Constants.trainCrashScore # no fancy equation for scoring because velocity is below 0 for some reason
 	trainCrashed.emit(trainCrashScore)
 	crashed = true
 	# Make collisions with player no longer work
 	collisionShape.disabled = true
+	
 	
 	var randomSpinnyVector : Vector3 = Vector3(randi_range(0, 360),randi_range(180, 360),randi_range(0, 360))
 	var speedOfLinearVelocity : float = Constants.trainSpeed / 8 # Controlled variable because sometimes too large

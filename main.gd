@@ -3,6 +3,7 @@ extends Node3D
 @export var mapGenerator : MapGenerator
 @export var cameraOrigin : Node3D
 @export var player : Player
+@export var cameraShaker : CameraShake
 
 var score : int = 0 : set = setScore
 # Used for extending map ahead of player

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbryhvua33vf7"]
+[gd_scene load_steps=6 format=3 uid="uid://cbryhvua33vf7"]
 
 [ext_resource type="Script" path="res://Objects/Vehicle/train.gd" id="1_xts5n"]
 [ext_resource type="PackedScene" uid="uid://c2q2xxnhogcat" path="res://Objects/MeshScenes/train_puller.tscn" id="2_sexh3"]
+[ext_resource type="PackedScene" uid="uid://si010nsseq5y" path="res://Objects/Particles/sparks.tscn" id="3_l0fjb"]
 [ext_resource type="PackedScene" uid="uid://cf6c43bbjwbu8" path="res://Objects/MeshScenes/train_car.tscn" id="3_varxc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u1dwb"]
@@ -15,6 +16,11 @@ collisionShape = NodePath("TrainPullerCollisionArea")
 [node name="TrainPullerCollisionArea" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0391846, 0.325097, -0.00514221)
 shape = SubResource("BoxShape3D_u1dwb")
+
+[node name="Sparks" parent="." instance=ExtResource("3_l0fjb")]
+transform = Transform3D(0.928492, 0.371352, 0, -0.371352, 0.928492, 0, 0, 0, 1, -1.39083, 1, 0)
+emitting = false
+one_shot = true
 
 [node name="trainPuller" parent="." instance=ExtResource("2_sexh3")]
 

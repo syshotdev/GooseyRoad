@@ -2,7 +2,10 @@ extends Node
 
 class_name Constants
 
-const cameraSpeed := .0 # Meters per second
+const cameraSpeed := 1.0 # Meters per second
+const defaultCameraShakeStrength := 1.0
+const defaultCameraShakeDecay := 1.0
+const defaultCameraShakeSpeed := 60.0
 const carSpeed := 10.0 # Meters per second
 const brakingPower := 5 # Controls how fast velocity in car goes to 0, velocity % goes down compoundingly by that much per second.
 const trainSpeed := 50.0

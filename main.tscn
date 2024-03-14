@@ -1,30 +1,46 @@
-[gd_scene load_steps=5 format=3 uid="uid://bex08a2uird62"]
+[gd_scene load_steps=8 format=3 uid="uid://bex08a2uird62"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_2sldp"]
 [ext_resource type="PackedScene" uid="uid://clfk2e33kplw3" path="res://Objects/player.tscn" id="1_d4kpf"]
 [ext_resource type="PackedScene" uid="uid://mlaxwejpmr84" path="res://Objects/map_generator.tscn" id="3_4pb7w"]
+[ext_resource type="Script" path="res://Screenshake.gd" id="4_83roq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2osco"]
+
+[sub_resource type="Sky" id="Sky_en2od"]
+sky_material = SubResource("ProceduralSkyMaterial_2osco")
 
 [sub_resource type="Environment" id="Environment_sks4p"]
+background_mode = 2
+background_energy_multiplier = 1.85
+sky = SubResource("Sky_en2od")
 
-[node name="Main" type="Node3D" node_paths=PackedStringArray("mapGenerator", "cameraOrigin", "player")]
+[node name="Main" type="Node3D"]
 script = ExtResource("1_2sldp")
-mapGenerator = NodePath("MapGenerator")
-cameraOrigin = NodePath("Camera Yaw Pivot")
-player = NodePath("Player")
+mapGenerator = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":Resource("res://Objects/mapGenerator.gd"),"roadScene":Resource("res://Objects/StripTypes/road.tscn"),"trainScene":Resource("res://Objects/StripTypes/trainTracks.tscn"),"riverScene":Resource("res://Objects/StripTypes/river.tscn"),"forestScene":Resource("res://Objects/StripTypes/forest.tscn"),"plainsScene":Resource("res://Objects/StripTypes/plains.tscn"))
+
+cameraOrigin = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 1, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("4_83roq"),"camera":Object(Camera3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"keep_aspect":1,"cull_mask":1048575,"environment":null,"attributes":null,"h_offset":0.0,"v_offset":0.0,"doppler_tracking":0,"projection":0,"current":false,"fov":80.0,"size":7.0,"frustum_offset":Vector2(0, 0),"near":0.05,"far":4000.0,"script":null)
+)
+
+player = Object(CharacterBody3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 0.999999, 0.00106465, 0, -0.00106465, 0.999999, 0, 0.47, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"disable_mode":0,"collision_layer":1,"collision_mask":3,"collision_priority":1.0,"input_ray_pickable":true,"input_capture_on_drag":false,"axis_lock_linear_x":false,"axis_lock_linear_y":false,"axis_lock_linear_z":false,"axis_lock_angular_x":false,"axis_lock_angular_y":false,"axis_lock_angular_z":false,"motion_mode":0,"up_direction":Vector3(0, 1, 0),"slide_on_ceiling":true,"velocity":Vector3(0, 0, 0),"max_slides":6,"wall_min_slide_angle":0.261799,"floor_stop_on_slope":true,"floor_constant_speed":false,"floor_block_on_wall":true,"floor_max_angle":0.785398,"floor_snap_length":0.1,"platform_on_leave":0,"platform_floor_layers":4294967295,"platform_wall_layers":0,"safe_margin":0.001,"script":Resource("res://Objects/player.gd"),"detectionArea":Object(Area3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"disable_mode":0,"collision_layer":1,"collision_mask":3,"collision_priority":1.0,"input_ray_pickable":true,"input_capture_on_drag":false,"monitoring":true,"monitorable":true,"priority":0,"gravity_space_override":0,"gravity_point":false,"gravity_point_unit_distance":0.0,"gravity_point_center":Vector3(0, -1, 0),"gravity_direction":Vector3(0, -1, 0),"gravity":9.8,"linear_damp_space_override":0,"linear_damp":0.1,"angular_damp_space_override":0,"angular_damp":0.1,"wind_force_magnitude":0.0,"wind_attenuation_factor":0.0,"wind_source_path":NodePath(""),"audio_bus_override":false,"audio_bus_name":&"Master","reverb_bus_enabled":false,"reverb_bus_name":&"Master","reverb_bus_amount":0.0,"reverb_bus_uniformity":0.0,"script":null)
+)
+
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sks4p")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.218798, -0.619793, 0.753647, 0.172802, 0.784766, 0.595216, -0.960347, 0, 0.278807, 0, 5.34271, 0)
+transform = Transform3D(-0.111391, -0.916719, -0.383691, 0.255588, -0.399533, 0.880368, -0.960347, -1.09257e-06, 0.278806, 0, 5.34271, 0)
 
 [node name="MapGenerator" parent="." instance=ExtResource("3_4pb7w")]
 
 [node name="Player" parent="." instance=ExtResource("1_d4kpf")]
 transform = Transform3D(1, 0, 0, 0, 0.999999, 0.00106465, 0, -0.00106465, 0.999999, 0, 0.47, 0)
 
-[node name="Camera Yaw Pivot" type="Node3D" parent="."]
+[node name="Camera Yaw Pivot" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 1, 0)
+script = ExtResource("4_83roq")
+camera = NodePath("Camera Pitch Pivot/Camera3D")
 
 [node name="Camera Pitch Pivot" type="Node3D" parent="Camera Yaw Pivot"]
 transform = Transform3D(1, 0, 0, 0, 0.707106, 0.707106, 0, -0.707106, 0.707106, 0, 0, 0)

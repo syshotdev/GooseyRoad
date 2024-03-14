@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://si010nsseq5y"]
+
+[ext_resource type="Material" uid="uid://cjw4ygh58pyak" path="res://Objects/Materials/fireMaterial.tres" id="1_uctiy"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yr4lu"]
+emission_shape = 1
+emission_sphere_radius = 2.0
+inherit_velocity_ratio = 0.87
+direction = Vector3(-1, 0.1, 0)
+spread = 50.0
+flatness = 0.759
+initial_velocity_min = 8.0
+initial_velocity_max = 16.0
+gravity = Vector3(0, -2, 0)
+scale_over_velocity_max = 84.94
+turbulence_noise_strength = 0.19
+turbulence_noise_scale = 1.198
+sub_emitter_mode = 1
+sub_emitter_frequency = 60.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_pk8w7"]
+material = ExtResource("1_uctiy")
+radius = 0.025
+height = 0.05
+
+[sub_resource type="Gradient" id="Gradient_3lnwb"]
+offsets = PackedFloat32Array(0, 0.955665, 1)
+colors = PackedColorArray(0.934684, 0.437362, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kvbv0"]
+gradient = SubResource("Gradient_3lnwb")
+
+[sub_resource type="Curve" id="Curve_ia0sc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_uuvf0"]
+curve = SubResource("Curve_ia0sc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rkvmt"]
+lifetime_randomness = 0.37
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, -0.1, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_uuvf0")
+color_ramp = SubResource("GradientTexture1D_kvbv0")
+
+[sub_resource type="BoxMesh" id="BoxMesh_t6b0r"]
+lightmap_size_hint = Vector2i(5, 7)
+material = ExtResource("1_uctiy")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Sparks" type="GPUParticles3D"]
+transform = Transform3D(0.988633, 0.150347, 0, -0.150347, 0.988633, 0, 0, 0, 1, -1.39083, 0, 0)
+amount = 40
+sub_emitter = NodePath("Fire")
+lifetime = 2.26
+explosiveness = 0.9
+visibility_aabb = AABB(-3.15255, -2.60649, -2.60275, 4.35515, 5.21298, 5.2055)
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_yr4lu")
+draw_pass_1 = SubResource("SphereMesh_pk8w7")
+
+[node name="Fire" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 1713
+lifetime = 1.02
+visibility_aabb = AABB(-2.34203, -2.60903, -2.68973, 4.68406, 5.21806, 5.37946)
+process_material = SubResource("ParticleProcessMaterial_rkvmt")
+draw_pass_1 = SubResource("BoxMesh_t6b0r")
