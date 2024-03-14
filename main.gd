@@ -1,11 +1,12 @@
 extends Node3D
 
+signal died()
+signal addAndUpdateScore(score : float)
+
 @export var mapGenerator : MapGenerator
 @export var player : Player
 @export var cameraOrigin : Node3D
 @export var cameraShaker : CameraShake
-
-var score : int = 0 : set = setScore
 # Used for extending map ahead of player
 var lowestStripID : int = -Constants.mapStripsBehindPlayer # Basically pos of first strip, aka strip behind player
 var highestStripID : int = Constants.mapStripsInFrontPlayer # mapAmountOfStrips ahead of mapStripsBehindPlayer
@@ -15,7 +16,6 @@ var cameraTargetPosition : Vector3 = Vector3.ZERO # For smoothly lerping between
 
 func _ready():
 	generateNewStrips(playerHighestStripPos)
-	score = 0
 
 
 func _process(delta):
@@ -34,11 +34,12 @@ func playerMoved(newPos : Vector3):
 # Generate function of strips (Doesn't generate if player moves anywhere but forward)
 func generateNewStrips(playerStripID : float):
 	# Formula = difference between playerStrip and highestStrip, but highestStripID should equal playerStripID when remove offset
-	var amountOfStripsToMake : int = floor(playerStripID - (highestStripID - Constants.mapStripsInFrontPlayer))
+	var amountOfStripsToMake : int = floor(playerStripID - mapGenerator.currentStripPosition + Constants.mapStripsInFrontPlayer)
 	clampi(amountOfStripsToMake, 0, INF) # Clamp it because negative means player is going backwards
 	
-	for i in range(amountOfStripsToMake):
-		mapGenerator.generateNextMapStrip()
+	# If we need to make even one new strip, call the function
+	if(amountOfStripsToMake > 0):
+		mapGenerator.generateNextMapSegment()
 
 # Updates camera smoothly with playerStripID
 func updateCameraPosition(playerStripID : float):
@@ -57,8 +58,9 @@ func updateFromPlayerStrip(playerStripID : float):
 func isPlayerDead():
 	var playerStripID : float = -player.position.z / Constants.blockSize # Calculates playerStripID from player pos
 	if(playerStripID < lowestStripID):
-		print("Died") # IT WORKS!!!!!
-		pass # Replace with endGame() function
+		died.emit()
+	elif(player.position.y < -1):
+		died.emit()
 
 # When vehicle crashes
 func onCrash(score : int):
@@ -68,9 +70,4 @@ func onCrash(score : int):
 
 
 func addScore(number : int):
-	setScore(score + number)
-
-
-func setScore(number : int):
-	score = number
-	$UI/Score.text = str("Score: ", score) # TEMPORARY!!
+	addAndUpdateScore.emit(number)

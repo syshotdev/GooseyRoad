@@ -52,9 +52,9 @@ func makeLog(length : int):
 		log.position += logNumber * Vector3(logSize, 0, 0) # One after another log
 	
 	collisionShape.scale.x = length * logSize
-	collisionShape.position.x = length / 2
+	collisionShape.position.x = length / 2.0
 	playerDetectionArea.scale.x = length * logSize
-	playerDetectionArea.position.x = length / 2
+	playerDetectionArea.position.x = length / 2.0
 
 
 func makeLillyPad():

@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://1xs2bomb4633"]
+
+[ext_resource type="Script" path="res://UI.gd" id="1_ma66r"]
+
+[node name="UI" type="Control" node_paths=PackedStringArray("scoreLabel", "instructionText")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ma66r")
+scoreLabel = NodePath("HBoxContainer/Score")
+instructionText = NodePath("VBoxContainer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -68.5
+offset_right = 68.5
+offset_bottom = 50.0
+grow_horizontal = 2
+
+[node name="Score" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Score: 0"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -146.5
+offset_top = -114.5
+offset_right = 146.5
+offset_bottom = 114.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Wasd" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 100
+text = "WASD"
+
+[node name="To start" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "TO START"
