@@ -40,7 +40,7 @@ func carSpawningTimerEnded():
 
 # When a car crashes, it sends signal to give player +~30 score
 func carCrashed(score : float):
-	get_parent().addScore(score) # Just call the addScore signal
+	get_parent().onCrash(score) # Just call the addScore signal
 
 
 func randomizeCarTimer():

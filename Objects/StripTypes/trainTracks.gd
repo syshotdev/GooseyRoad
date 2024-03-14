@@ -49,7 +49,7 @@ func randomizeTrainTimer():
 
 # When a train crashes, it sends signal to give player +~30 score
 func trainCrashed(score : float):
-	get_parent().addScore(score) # Just call the parent addScore function
+	get_parent().onCrash(score) # Just call the parent addScore function
 
 
 func trainRemovalAreaEntered(body : Node3D):

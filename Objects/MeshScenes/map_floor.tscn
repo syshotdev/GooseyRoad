@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7yvf1hywd1jg"]
+
+[ext_resource type="Script" path="res://Objects/MeshScenes/map_floor.gd" id="1_5ok1j"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w7ywn"]
+size = Vector3(1, 0.2, 1)
+
+[node name="FloorMesh" type="CSGBox3D" node_paths=PackedStringArray("collisionShape")]
+size = Vector3(15, 0.3, 1)
+script = ExtResource("1_5ok1j")
+collisionShape = NodePath("FloorCollision/CollisionShape3D")
+
+[node name="FloorCollision" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloorCollision"]
+shape = SubResource("BoxShape3D_w7ywn")

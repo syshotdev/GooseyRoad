@@ -6,8 +6,8 @@ class_name CameraShake
 
 @export var camera : Camera3D
 @onready var noise := FastNoiseLite.new()
-var shakeStrength := 0
-var shakeDecayRate := 1
+var shakeStrength : float = 0
+var shakeDecayRate : float = 1
 var noiseIndex : float = 0 # Goes up every screen shake for different screen shake
 
 func _ready():
@@ -15,14 +15,15 @@ func _ready():
 
 
 func _process(delta):
-	shakeStrength = lerp(shakeStrength, 0, delta * shakeDecayRate)
-	camera.h_offset = getRandomOffset(delta).x
-	camera.v_offset = getRandomOffset(delta).y
+	shakeStrength = lerp(shakeStrength, 0.0, delta * shakeDecayRate)
+	camera.h_offset = lerp(camera.h_offset, getRandomOffset(delta).x, 0.5)
+	camera.v_offset = lerp(camera.v_offset, getRandomOffset(delta).y, 0.5)
 
 
 func shakeCamera(newShakeStrength : float, newShakeDecayRate : float):
 	self.shakeStrength = newShakeStrength
 	self.shakeDecayRate = newShakeDecayRate
+	var randomVarNOUse
 
 
 func getRandomOffset(delta : float) -> Vector2:

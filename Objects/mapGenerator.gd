@@ -3,6 +3,7 @@ extends Node3D
 class_name MapGenerator
 
 signal updateScore(score : float)
+signal carCrashed(score : float)
 
 # The basic idea for this class is that there are strips of the map rather than individual blocks.
 # Each strip is either ground or water, and if land, forest, road, or train.
@@ -45,3 +46,7 @@ func generateNextMapStrip():
 
 func addScore(score : float):
 	updateScore.emit(score)
+
+
+func onCrash(score : float):
+	carCrashed.emit(score)

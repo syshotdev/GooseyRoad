@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://djyqnndv57eo1"]
+[gd_scene load_steps=8 format=3 uid="uid://djyqnndv57eo1"]
 
 [ext_resource type="Script" path="res://Objects/StripTypes/road.gd" id="1_kgcql"]
 [ext_resource type="PackedScene" uid="uid://beguuue73mcmk" path="res://Objects/Vehicle/car.tscn" id="2_uupuq"]
 [ext_resource type="PackedScene" uid="uid://bmia717s3u73t" path="res://Objects/MeshScenes/entrance_and_exit_component.tscn" id="3_xqlc0"]
-[ext_resource type="PackedScene" uid="uid://cc2mvth3somss" path="res://Objects/MeshScenes/map_shape.tscn" id="4_840i4"]
+[ext_resource type="PackedScene" uid="uid://cc2mvth3somss" path="res://Objects/MeshScenes/map_walls.tscn" id="4_840i4"]
 [ext_resource type="Material" uid="uid://cnnw2qw2ct1rd" path="res://Objects/Materials/road.tres" id="4_i05pe"]
+[ext_resource type="PackedScene" uid="uid://c7yvf1hywd1jg" path="res://Objects/MeshScenes/map_floor.tscn" id="4_qiyl7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6eijy"]
 size = Vector3(1, 10, 1)
@@ -14,10 +15,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 script = ExtResource("1_kgcql")
 carScene = ExtResource("2_uupuq")
 
-[node name="EntranceAndExitComponent" parent="." instance=ExtResource("3_xqlc0")]
+[node name="Walls" parent="." instance=ExtResource("4_840i4")]
 
-[node name="RoadMesh" parent="." instance=ExtResource("4_840i4")]
-material_override = ExtResource("4_i05pe")
+[node name="FloorMesh" parent="." instance=ExtResource("4_qiyl7")]
+material = ExtResource("4_i05pe")
+
+[node name="EntranceAndExitComponent" parent="." instance=ExtResource("3_xqlc0")]
 
 [node name="CarSpawningPoint" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.6, 0)

@@ -1,8 +1,8 @@
 extends Node3D
 
 @export var mapGenerator : MapGenerator
-@export var cameraOrigin : Node3D
 @export var player : Player
+@export var cameraOrigin : Node3D
 @export var cameraShaker : CameraShake
 
 var score : int = 0 : set = setScore
@@ -55,10 +55,16 @@ func updateFromPlayerStrip(playerStripID : float):
 
 
 func isPlayerDead():
-	var playerStripID : float = -player.position.z / Constants.blockSize
+	var playerStripID : float = -player.position.z / Constants.blockSize # Calculates playerStripID from player pos
 	if(playerStripID < lowestStripID):
 		print("Died") # IT WORKS!!!!!
 		pass # Replace with endGame() function
+
+# When vehicle crashes
+func onCrash(score : int):
+	addScore(score)
+	var shakeStrength : float = tanh(score) * 3 # Should generate a shake score from 0 to 3
+	cameraShaker.shakeCamera(shakeStrength, 1.5)
 
 
 func addScore(number : int):
