@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0lil5c38uw14"]
+
+[ext_resource type="PackedScene" uid="uid://c84s8402mly0y" path="res://Models/lillyPad.dae" id="1_n6pu3"]
+
+[node name="lillyPad" instance=ExtResource("1_n6pu3")]
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, 0, 0)

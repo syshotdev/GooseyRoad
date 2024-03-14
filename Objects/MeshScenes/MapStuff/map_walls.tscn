@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cc2mvth3somss"]
 
-[ext_resource type="Script" path="res://Objects/MeshScenes/mapWalls.gd" id="1_gs08k"]
-[ext_resource type="PackedScene" uid="uid://cut6o236rw0ww" path="res://Objects/MeshScenes/wall.tscn" id="2_nlhux"]
+[ext_resource type="Script" path="res://Objects/MeshScenes/MapStuff/mapWalls.gd" id="1_gs08k"]
+[ext_resource type="PackedScene" uid="uid://cut6o236rw0ww" path="res://Objects/MeshScenes/MapStuff/wall.tscn" id="2_nlhux"]
 
 [node name="MapWalls" type="Node3D" node_paths=PackedStringArray("wallLeft", "wallRight")]
 script = ExtResource("1_gs08k")

@@ -10,6 +10,7 @@ const carSpeed := 10.0 # Meters per second
 const brakingPower := 5 # Controls how fast velocity in car goes to 0, velocity % goes down compoundingly by that much per second.
 const trainSpeed := 50.0
 # Note: move_and_slide() also makes it slow down.
+const debrisSpeed := 1.0
 
 const carCrashScore := 50
 const trainCrashScore := 15

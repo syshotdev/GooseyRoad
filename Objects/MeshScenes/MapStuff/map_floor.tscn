@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c7yvf1hywd1jg"]
 
-[ext_resource type="Script" path="res://Objects/MeshScenes/map_floor.gd" id="1_5ok1j"]
+[ext_resource type="Script" path="res://Objects/MeshScenes/MapStuff/mapFloor.gd" id="1_5ok1j"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w7ywn"]
 size = Vector3(1, 0.2, 1)

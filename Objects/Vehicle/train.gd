@@ -69,7 +69,7 @@ func isCollidedWithPlayer() -> bool:
 # Moves in the general direction of left.
 func move(delta : float):
 	# Speed of car, delta, and direction of movement
-	velocity += Constants.carSpeed * delta * direction
+	velocity += Constants.trainSpeed * delta * direction
 
 # For actually looking like it crashed
 func doCrash():

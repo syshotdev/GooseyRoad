@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://Objects/StripTypes/trainTracks.gd" id="1_qcm4l"]
 [ext_resource type="PackedScene" uid="uid://cbryhvua33vf7" path="res://Objects/Vehicle/train.tscn" id="2_d7d48"]
 [ext_resource type="PackedScene" uid="uid://bphovdf3rtmkp" path="res://Objects/MeshScenes/track.tscn" id="3_xu27f"]
-[ext_resource type="PackedScene" uid="uid://bmia717s3u73t" path="res://Objects/MeshScenes/entrance_and_exit_component.tscn" id="4_kmu2j"]
-[ext_resource type="PackedScene" uid="uid://cc2mvth3somss" path="res://Objects/MeshScenes/map_walls.tscn" id="5_n8gwj"]
-[ext_resource type="PackedScene" uid="uid://c7yvf1hywd1jg" path="res://Objects/MeshScenes/map_floor.tscn" id="6_t5m2m"]
+[ext_resource type="PackedScene" uid="uid://bmia717s3u73t" path="res://Objects/MeshScenes/MapStuff/entrance_and_exit_component.tscn" id="4_oal83"]
+[ext_resource type="PackedScene" uid="uid://c7yvf1hywd1jg" path="res://Objects/MeshScenes/MapStuff/map_floor.tscn" id="5_42sk1"]
 [ext_resource type="Material" uid="uid://boyq8adjheroc" path="res://Objects/Materials/ground.tres" id="7_1noty"]
+[ext_resource type="PackedScene" uid="uid://cc2mvth3somss" path="res://Objects/MeshScenes/MapStuff/map_walls.tscn" id="7_ma13n"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uap7l"]
 size = Vector3(1, 10, 0.8)
@@ -20,12 +20,12 @@ trainSpawningPoint = NodePath("trainSpawningPoint")
 trainRemovalArea = NodePath("trainRemovalArea")
 trackSpawningPoint = NodePath("trackSpawningPoint")
 
-[node name="EntranceAndExitComponent" parent="." instance=ExtResource("4_kmu2j")]
+[node name="EntranceAndExitComponent" parent="." instance=ExtResource("4_oal83")]
 
-[node name="FloorMesh" parent="." instance=ExtResource("6_t5m2m")]
+[node name="FloorMesh" parent="." instance=ExtResource("5_42sk1")]
 material_override = ExtResource("7_1noty")
 
-[node name="CollisionRoad" parent="." instance=ExtResource("5_n8gwj")]
+[node name="CollisionRoad" parent="." instance=ExtResource("7_ma13n")]
 
 [node name="trainSpawningPoint" type="Node3D" parent="."]
 

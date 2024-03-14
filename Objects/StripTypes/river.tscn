@@ -1,3 +1,52 @@
-[gd_scene format=3 uid="uid://cphhw3bmvaoyn"]
+[gd_scene load_steps=9 format=3 uid="uid://cphhw3bmvaoyn"]
 
-[node name="River" type="Node3D"]
+[ext_resource type="Script" path="res://Objects/StripTypes/river.gd" id="1_1y3jt"]
+[ext_resource type="PackedScene" uid="uid://bj4u2xm18sow6" path="res://Objects/Vehicle/debris.tscn" id="2_qwhn6"]
+[ext_resource type="PackedScene" uid="uid://bmia717s3u73t" path="res://Objects/MeshScenes/MapStuff/entrance_and_exit_component.tscn" id="2_sweww"]
+[ext_resource type="PackedScene" uid="uid://c7yvf1hywd1jg" path="res://Objects/MeshScenes/MapStuff/map_floor.tscn" id="3_ys5eq"]
+[ext_resource type="Material" uid="uid://ckvp53l3wq7as" path="res://Objects/Materials/water.tres" id="4_sg33y"]
+[ext_resource type="PackedScene" uid="uid://cc2mvth3somss" path="res://Objects/MeshScenes/MapStuff/map_walls.tscn" id="4_swwrp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lllrb"]
+size = Vector3(1, 10, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ue3w6"]
+size = Vector3(18, 10, 0.8)
+
+[node name="River" type="Node3D" node_paths=PackedStringArray("debrisSpawningTimer", "debrisSpawningPoint", "debrisRemovalArea", "playerDownArea")]
+script = ExtResource("1_1y3jt")
+debrisScene = ExtResource("2_qwhn6")
+debrisSpawningTimer = NodePath("DebrisSpawningTimer")
+debrisSpawningPoint = NodePath("DebrisSpawningPoint")
+debrisRemovalArea = NodePath("debrisRemovalArea")
+playerDownArea = NodePath("PlayerDetectionArea")
+
+[node name="DebrisSpawningTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="DebrisSpawningPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.279881, 0)
+
+[node name="EntranceAndExitComponent" parent="." instance=ExtResource("2_sweww")]
+
+[node name="FloorMesh" parent="." instance=ExtResource("3_ys5eq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material = ExtResource("4_sg33y")
+
+[node name="MapWalls" parent="." instance=ExtResource("4_swwrp")]
+
+[node name="debrisRemovalArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.225, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="debrisRemovalArea"]
+shape = SubResource("BoxShape3D_lllrb")
+
+[node name="PlayerDetectionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectionArea"]
+shape = SubResource("BoxShape3D_ue3w6")
+
+[connection signal="timeout" from="DebrisSpawningTimer" to="." method="debrisSpawningTimerEnded"]
+[connection signal="body_entered" from="debrisRemovalArea" to="." method="debrisRemovalAreaEntered"]
+[connection signal="body_entered" from="PlayerDetectionArea" to="." method="possiblePlayerBodyEntered"]
+[connection signal="body_exited" from="PlayerDetectionArea" to="." method="possiblePlayerBodyExited"]

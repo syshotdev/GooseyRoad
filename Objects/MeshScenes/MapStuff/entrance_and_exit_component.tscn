@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmia717s3u73t"]
+
+[ext_resource type="Script" path="res://Objects/MeshScenes/MapStuff/EntranceAndExit.gd" id="1_0j33c"]
+[ext_resource type="PackedScene" uid="uid://dphiobj1m1a88" path="res://Objects/MeshScenes/MapStuff/tunnel_entrance.tscn" id="2_y55ir"]
+
+[node name="EntranceAndExitComponent" type="Node3D" node_paths=PackedStringArray("tunnelExit", "tunnelEntrance")]
+script = ExtResource("1_0j33c")
+tunnelExit = NodePath("tunnelExit")
+tunnelEntrance = NodePath("tunnelEntrance")
+
+[node name="tunnelEntrance" parent="." instance=ExtResource("2_y55ir")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 7.5, 1, 0)
+
+[node name="tunnelExit" parent="." instance=ExtResource("2_y55ir")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1, 0)
